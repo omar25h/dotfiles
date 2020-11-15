@@ -59,3 +59,13 @@ nvim_lsp.texlab.setup{
     on_attach = completion.on_attach
 }
 
+-------------------------------------------------------------------------------------------------
+-- Treesitter
+-------------------------------------------------------------------------------------------------
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true,
+  },
+}
