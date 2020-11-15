@@ -27,9 +27,10 @@ yabai -m config window_shadow                   float
 yabai -m rule --add app=".*"                    border=off
 yabai -m rule --add app="^System Preferences$"  manage=off
 yabai -m rule --add app="^System Information$"  manage=off
+yabai -m rule --add app="Finder" title="Copy"   manage=off
 yabai -m rule --add app="Preview"               manage=off
 yabai -m rule --add app="Stickies"              manage=off
-yabai -m rule --add app="Calculator"	        manage=off
+yabai -m rule --add app="Calculator"            manage=off
 yabai -m rule --add app="Firefox"  title="^$"   manage=off
 yabai -m rule --add app="ueli"                  layer=above
 yabai -m rule --add app="VLC"                   manage=off
