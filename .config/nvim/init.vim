@@ -5,6 +5,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 Plug 'sheerun/vim-polyglot'
 
