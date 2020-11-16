@@ -8,7 +8,7 @@ local root_pattern = nvim_lsp.util.root_pattern
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.rust_analyzer.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ nvim_lsp.rust_analyzer.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.ccls.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ nvim_lsp.ccls.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.gopls.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ nvim_lsp.gopls.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.tsserver.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ nvim_lsp.tsserver.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.jsonls.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ nvim_lsp.jsonls.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.metals.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
 }
 
 -------------------------------------------------------------------------------------------------
@@ -56,7 +56,20 @@ nvim_lsp.metals.setup{
 -------------------------------------------------------------------------------------------------
 
 nvim_lsp.texlab.setup{
-    on_attach = completion.on_attach
+  on_attach = completion.on_attach,
+  settings = {
+    latex = {
+      build = {
+        args = { 
+          "-pdf",
+          "-interaction=nonstopmode",
+          "-synctex=1",
+          "-output-directory=dist",
+        },
+        onSave = true,
+      },
+    },
+  },
 }
 
 -------------------------------------------------------------------------------------------------
