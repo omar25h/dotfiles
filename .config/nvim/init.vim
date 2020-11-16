@@ -47,6 +47,9 @@ set splitright
 set nohlsearch
 set termguicolors
 set smartcase
+set completeopt=menuone,noinsert,noselect
+set omnifunc=v:lua.vim.lsp.omnifunc
+set shortmess+=c
 
 if exists($XDG_CONFIG_HOME)
     luafile $XDG_CONFIG_HOME/nvim/init.lua
@@ -114,6 +117,11 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <leader>rn     <cmd>lua vim.lsp.buf.rename()<CR>
+
+" popup menu navigation
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " -------------------------------------------------------------------------------------------------
 " vim-go
