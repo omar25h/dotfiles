@@ -1,13 +1,13 @@
-local nvim_lsp = require'nvim_lsp'
+local lspconfig = require'lspconfig'
 local completion = require'completion'
 
-local root_pattern = nvim_lsp.util.root_pattern
+local root_pattern = lspconfig.util.root_pattern
 
 -------------------------------------------------------------------------------------------------
 -- Rust
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.rust_analyzer.setup{
+lspconfig.rust_analyzer.setup{
   on_attach = completion.on_attach,
 }
 
@@ -15,7 +15,7 @@ nvim_lsp.rust_analyzer.setup{
 -- C/C++/Objective-C
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.ccls.setup{
+lspconfig.ccls.setup{
   on_attach = completion.on_attach,
 }
 
@@ -23,7 +23,7 @@ nvim_lsp.ccls.setup{
 -- Golang
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.gopls.setup{
+lspconfig.gopls.setup{
   on_attach = completion.on_attach,
 }
 
@@ -31,7 +31,7 @@ nvim_lsp.gopls.setup{
 -- JavaScript/TypeScript
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.tsserver.setup{
+lspconfig.tsserver.setup{
   on_attach = completion.on_attach,
 }
 
@@ -39,7 +39,7 @@ nvim_lsp.tsserver.setup{
 -- JSON
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.jsonls.setup{
+lspconfig.jsonls.setup{
   on_attach = completion.on_attach,
 }
 
@@ -47,7 +47,7 @@ nvim_lsp.jsonls.setup{
 -- Scala
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.metals.setup{
+lspconfig.metals.setup{
   on_attach = completion.on_attach,
 }
 
@@ -55,7 +55,7 @@ nvim_lsp.metals.setup{
 -- LaTex
 -------------------------------------------------------------------------------------------------
 
-nvim_lsp.texlab.setup{
+lspconfig.texlab.setup{
   on_attach = completion.on_attach,
   settings = {
     latex = {
