@@ -1,0 +1,30 @@
+[include]
+	path=~/.config/git/local.config
+
+[core]
+	editor = nvim
+	eol = lf
+	autocrlf = false
+	pager = delta
+
+[pull]
+	rebase = false
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = decorations
+	whitespace-error-style = 22 reverse
+	side-by-side = false
+	line-numbers = true
+	navigate = false
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+
+[alias]
+	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit; };f"
+
