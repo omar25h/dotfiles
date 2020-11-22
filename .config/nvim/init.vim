@@ -92,8 +92,8 @@ let g:airline_theme='base16_gruvbox_dark_hard'
 " ack
 " -------------------------------------------------------------------------------------------------
 
-if executable('ag')
-  let g:ackprg='ag --vimgrep'
+if executable('rg')
+  let g:ackprg='rg --vimgrep'
 endif
 
 " -------------------------------------------------------------------------------------------------
