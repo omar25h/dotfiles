@@ -96,7 +96,7 @@ end
 vim.api.nvim_set_keymap('', '<C-n>', '<Cmd>cnext<CR>', {})
 vim.api.nvim_set_keymap('', '<C-p>', '<Cmd>cprevious<CR>', {})
 vim.api.nvim_set_keymap('n', '<Leader>a', '<Cmd>cclose<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>ne', '<Cmd>LuaTreeToggle<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>ne', '<Cmd>NvimTreeToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-S-T>', '<Cmd>vs<bar>:b#<CR>', {})
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 
