@@ -10,8 +10,6 @@ require'packer'.startup(function()
   use 'nvim-treesitter/nvim-treesitter'
   use 'nvim-treesitter/completion-treesitter'
 
-  use 'sheerun/vim-polyglot'
-
   use 'editorconfig/editorconfig-vim'
 
   use 'airblade/vim-gitgutter'
