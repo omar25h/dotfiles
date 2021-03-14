@@ -14,6 +14,8 @@
 	diffFilter = delta --color-only
 
 [delta]
+	syntax-theme = Gruvbox
+	light = true
 	features = decorations
 	whitespace-error-style = 22 reverse
 	side-by-side = false
