@@ -62,13 +62,8 @@ vim.g.filetype_m = 'objc'
 
 vim.api.nvim_exec ([==[
 colorscheme gruvbox
-highlight LineNr ctermfg=1 guifg=#6F6F6F ctermbg=NONE guibg=NONE
-highlight SignColumn ctermbg=NONE guibg=NONE
-highlight CursorLineNr ctermbg=NONE guibg=NONE
-
-highlight GitGutterAddDefault guibg=NONE
-highlight GitGutterChangeDefault guibg=NONE
-highlight GitGutterDeleteDefault guibg=NONE
+set background=light
+autocmd Filetype NvimTree,Help set signcolumn=no
 ]==], false)
 
 -------------------------------------------------------------------------------------------------
