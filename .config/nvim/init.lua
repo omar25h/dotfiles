@@ -23,9 +23,7 @@ require'packer'.startup(function()
   use 'tpope/vim-surround'
   use 'tpope/vim-commentary'
 
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
-  use 'morhetz/gruvbox'
+  use 'gruvbox-community/gruvbox'
 end)
 
 -------------------------------------------------------------------------------------------------
