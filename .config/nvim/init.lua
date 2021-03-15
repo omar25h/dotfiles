@@ -39,6 +39,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.hlsearch = false
 vim.o.termguicolors = true
+vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.o.omnifunc = 'v:lua.vim.lsp.omnifunc'
