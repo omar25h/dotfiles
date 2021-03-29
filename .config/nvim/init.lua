@@ -63,9 +63,14 @@ vim.g.filetype_m = 'objc'
 
 vim.api.nvim_exec ([==[
 colorscheme gruvbox
-set background=light
 autocmd Filetype NvimTree,Help set signcolumn=no
 ]==], false)
+
+if vim.fn.getenv("DARKMODE") == "1" then
+  vim.api.nvim_exec([[set background=dark]], false)
+else
+  vim.api.nvim_exec([[set background=light]], false)
+end
 
 -------------------------------------------------------------------------------------------------
 -- Ack
