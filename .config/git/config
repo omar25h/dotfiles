@@ -29,4 +29,7 @@
 
 [alias]
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit; };f"
+	tree = log --graph --oneline
+	hash = log --pretty=format:'%H' -n 1
+	unstage = reset HEAD --
 
