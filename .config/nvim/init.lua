@@ -64,6 +64,7 @@ vim.g.filetype_m = 'objc'
 vim.api.nvim_exec ([==[
 colorscheme gruvbox
 autocmd Filetype NvimTree,Help set signcolumn=no
+autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
 ]==], false)
 
 if vim.fn.getenv("DARKMODE") == "1" then
