@@ -24,6 +24,12 @@ require'packer'.startup(function()
   use 'tpope/vim-commentary'
 
   use 'gruvbox-community/gruvbox'
+
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  }
+
 end)
 
 -------------------------------------------------------------------------------------------------
@@ -111,6 +117,12 @@ vim.api.nvim_set_keymap('n', '<Leader>dl', '<Cmd>lua vim.lsp.diagnostic.set_locl
 -- Popup Menu
 vim.api.nvim_set_keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
 vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+
+-- Telescope
+vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags<CR>', { noremap = true })
 
 -------------------------------------------------------------------------------------------------
 -- Gitgutter
