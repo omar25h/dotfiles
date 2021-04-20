@@ -12,8 +12,11 @@ require'packer'.startup(function()
 
   use 'editorconfig/editorconfig-vim'
 
-  use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
 
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
@@ -125,11 +128,10 @@ vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers<CR>', { norem
 vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags<CR>', { noremap = true })
 
 -------------------------------------------------------------------------------------------------
--- Gitgutter
+-- Gitsigns
 -------------------------------------------------------------------------------------------------
 
-vim.api.nvim_set_keymap('n', ']h', '<Plug>(GitGutterNextHunk)', {})
-vim.api.nvim_set_keymap('n', '[h', '<Plug>(GitGutterPrevHunk)', {})
+require('gitsigns').setup()
 
 -------------------------------------------------------------------------------------------------
 -- LSP
