@@ -30,7 +30,7 @@ vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? '\<C-p>' : '<S-Tab>']],
 
 -- Telescope
 vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags<CR>', { noremap = true })
 
