@@ -1,0 +1,18 @@
+# Add types
+--type-add
+env:*.env
+
+--type-add
+properties:*.properties
+
+--type-add
+terraform:*.tf
+
+# Using glob patterns to include/exclude files or folders
+--glob=!.git/*
+
+# Always include hidden files, unless --no-hidden is passed
+--hidden
+
+--smart-case
+
