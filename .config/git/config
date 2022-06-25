@@ -7,20 +7,18 @@
 	autocrlf = false
 	pager = delta
 
-[pull]
-	rebase = false
-
 [interactive]
 	diffFilter = delta --color-only
 
 [delta]
-	syntax-theme = Gruvbox
-	light = true
+	syntax-theme = gruvbox-dark
+	light = false
 	features = decorations
 	whitespace-error-style = 22 reverse
 	side-by-side = false
 	line-numbers = true
 	navigate = false
+	max-line-length = 0
 
 [delta "decorations"]
 	commit-decoration-style = bold yellow box ul
@@ -31,5 +29,20 @@
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit; };f"
 	tree = log --graph --oneline
 	hash = log --pretty=format:'%H' -n 1
-	unstage = reset HEAD --
+	unstage = restore --staged --
+	show-skipped = !git ls-files -v . | grep ^S
+	root = rev-parse --show-toplevel
+	exec = "!exec "
+
+[merge]
+	tool = nvimdiff
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d $LOCAL $MERGED $REMOTE -c '$wincmd l'
+
+[color]
+	ui = always
 
