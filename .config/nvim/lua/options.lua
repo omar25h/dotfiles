@@ -4,7 +4,7 @@
 
 vim.o.autoread = true
 vim.o.autowrite = true
-vim.o.mouse = 'a'
+vim.o.mouse = 'nvi'
 vim.o.path = vim.o.path .. ',**'
 vim.o.wildmenu = true
 vim.o.splitbelow = true
@@ -36,7 +36,7 @@ vim.g.tex_flavor = 'latex'
 -- Styling
 -------------------------------------------------------------------------------------------------
 
-vim.api.nvim_exec ([==[
+vim.api.nvim_exec([==[
 colorscheme gruvbox
 autocmd Filetype NvimTree,Help set signcolumn=no
 autocmd Filetype tex setl filetype=tex
@@ -48,5 +48,4 @@ if vim.fn.getenv('DARKMODE') == '1' then
 else
   vim.api.nvim_exec([[set background=light]], false)
 end
-
 
