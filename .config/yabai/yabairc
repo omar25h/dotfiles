@@ -26,6 +26,7 @@ yabai -m config window_shadow                        float
 # Rules
 yabai -m rule --add app=".*"                                     border=off
 yabai -m rule --add app="^System Preferences$"                   manage=off
+yabai -m rule --add app="^Microsoft Teams$" title=""             manage=off
 yabai -m rule --add app="^System Information$"                   manage=off
 yabai -m rule --add app="Finder" title="Copy"                    manage=off
 yabai -m rule --add app="Notes"                                  manage=off
