@@ -2,7 +2,7 @@
 -- Treesitter
 -------------------------------------------------------------------------------------------------
 
-require'nvim-treesitter.install'.compilers = { 'gcc' }
+require'nvim-treesitter.install'.compilers = { 'clang' }
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 

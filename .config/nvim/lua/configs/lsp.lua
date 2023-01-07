@@ -2,9 +2,7 @@
 -- LSP
 -------------------------------------------------------------------------------------------------
 
-vim.lsp.set_log_level('TRACE')
-
- -- Setup nvim-cmp.
+-- Set up nvim-cmp
 local cmp = require'cmp'
 local types = require('cmp.types')
 
@@ -52,42 +50,42 @@ local cmplsp = require'cmp_nvim_lsp'
 
 -- Rust
 lspconfig.rust_analyzer.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- C/C++/Objective-C
 lspconfig.ccls.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- Golang
 lspconfig.gopls.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- JavaScript/TypeScript
 lspconfig.tsserver.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- Vue
 lspconfig.vuels.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- JSON
 lspconfig.jsonls.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- Kotlin
 lspconfig.kotlin_language_server.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- Scala
 lspconfig.metals.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- Lua
@@ -100,7 +98,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.sumneko_lua.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   settings = {
     Lua = {
       runtime = {
@@ -127,7 +125,7 @@ lspconfig.sumneko_lua.setup {
 
 -- LaTex
 lspconfig.texlab.setup{
-  capabilities = cmplsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   settings = {
     texlab = {
       build = {
