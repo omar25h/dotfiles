@@ -26,6 +26,7 @@ vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = 
 vim.keymap.set('n', '<Leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<Leader>fmt', '<Cmd>lua vim.lsp.buf.format{ async = true }<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<Leader>dl', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>vca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
 
 -- Popup Menu
 vim.keymap.set('i', '<Tab>', [[pumvisible() ? '\<C-n>' : '<Tab>']], { noremap = true, expr = true })

@@ -471,6 +471,7 @@ ls.snippets = {
 	-- 	}),
 	-- },
   tex = require('snippets/tex'),
+  json = require('snippets/json'),
 }
 
 -- require('snippets/tex').tex

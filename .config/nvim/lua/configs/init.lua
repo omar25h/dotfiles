@@ -1,8 +1,5 @@
 require 'configs.lsp'
-require 'configs.treesitter'
-require 'configs.lualine'
-require 'configs.gitsigns'
-require 'configs.neorg'
-require 'configs.telescope'
-require 'configs.nvim-tree'
 
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0

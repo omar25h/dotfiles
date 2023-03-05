@@ -59,9 +59,61 @@ lspconfig.ccls.setup{
 }
 
 -- Golang
+
+-- see if the file exists
+function FileExists(file)
+  local f = io.open(file, "rb")
+  if f then f:close() end
+  return f ~= nil
+end
+
+-- Get the value of the module name from go.mod in PWD
+function GetGoModuleName()
+  if not FileExists("go.mod") then return nil end
+  for line in io.lines("go.mod") do
+    if vim.startswith(line, "module") then
+      local items = vim.split(line, " ")
+      local module_name = vim.trim(items[2])
+      return module_name
+    end
+  end
+  return nil
+end
+
 lspconfig.gopls.setup{
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  settings = {
+    gopls = {
+      ['local'] = GetGoModuleName(),
+    },
+  }
 }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.go" },
+  callback = function()
+	  vim.lsp.buf.format(nil, 5000)
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = { "*.go" },
+	callback = function()
+		local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding())
+		params.context = {only = {"source.organizeImports"}}
+
+		local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 7000)
+		for _, res in pairs(result or {}) do
+			for _, r in pairs(res.result or {}) do
+				if r.edit then
+					vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding())
+				else
+					vim.lsp.buf.execute_command(r.command)
+				end
+			end
+		end
+	end,
+})
 
 -- JavaScript/TypeScript
 lspconfig.tsserver.setup{
@@ -75,17 +127,13 @@ lspconfig.vuels.setup{
 
 -- JSON
 lspconfig.jsonls.setup{
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-}
-
--- Kotlin
-lspconfig.kotlin_language_server.setup{
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-}
-
--- Scala
-lspconfig.metals.setup{
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
 
 -- Lua
@@ -96,7 +144,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   settings = {
