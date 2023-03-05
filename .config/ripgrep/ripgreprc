@@ -8,6 +8,12 @@ properties:*.properties
 --type-add
 terraform:*.tf
 
+--type-add
+jenkins:Jenkinsfile*
+
+--type-add
+jenkins:Buildfile
+
 # Using glob patterns to include/exclude files or folders
 --glob=!.git/*
 
