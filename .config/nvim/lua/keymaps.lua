@@ -9,7 +9,7 @@ vim.keymap.set('n', '<Leader>a', '<Cmd>cclose<CR>', { noremap = true })
 vim.keymap.set('n', '<Leader>ne', '<Cmd>NvimTreeFindFileToggle<CR>', { noremap = true })
 vim.keymap.set('n', '<C-S-T>', '<Cmd>vs<bar>:b#<CR>', {})
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
-vim.keymap.set('n', '<Leader><Leader>s', '<Cmd>source %<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader><Leader>s', '<Cmd>source ~/.config/nvim/lua/configs/snippets.lua<CR>', { noremap = true })
 vim.keymap.set('n', '<Leader><Leader>w', '<Cmd>w<CR>', { noremap = true })
 vim.keymap.set('n', '<Leader><Leader>x', '<Cmd>!%<CR>', { noremap = true })
 

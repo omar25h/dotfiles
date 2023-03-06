@@ -37,6 +37,3 @@ require'options'
 require'configs'
 
 require'keymaps'
-
-require'snippets'
-
