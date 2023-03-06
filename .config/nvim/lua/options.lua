@@ -12,6 +12,7 @@ vim.o.splitright = true
 vim.o.hlsearch = true
 vim.o.termguicolors = true
 vim.o.ignorecase = true
+vim.o.laststatus = 3
 vim.o.smartcase = true
 vim.o.swapfile = false
 vim.o.completeopt = 'menuone,noinsert,noselect'
