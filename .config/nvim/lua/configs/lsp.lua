@@ -5,14 +5,16 @@
 local lspconfig = require 'lspconfig'
 local cmplsp = require 'cmp_nvim_lsp'
 
+local capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- Rust
 lspconfig.rust_analyzer.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
 }
 
 -- C/C++/Objective-C
 lspconfig.ccls.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
 }
 
 -- Golang
@@ -42,7 +44,7 @@ function GetGoModuleName()
 end
 
 lspconfig.gopls.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   settings = {
     gopls = {
       ['local'] = GetGoModuleName(),
@@ -53,21 +55,21 @@ lspconfig.gopls.setup {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.go' },
   callback = function()
-    vim.lsp.buf.format(nil, 5000)
+    vim.lsp.buf.format { timeout_ms = 5000 }
   end,
 })
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.go' },
   callback = function()
-    local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding())
+    local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding(0))
     params.context = { only = { 'source.organizeImports' } }
 
     local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 7000)
     for _, res in pairs(result or {}) do
       for _, r in pairs(res.result or {}) do
         if r.edit then
-          vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding())
+          vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding(0))
         else
           vim.lsp.buf.execute_command(r.command)
         end
@@ -78,17 +80,17 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- JavaScript/TypeScript
 lspconfig.tsserver.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
 }
 
 -- Vue
 lspconfig.vuels.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
 }
 
 -- JSON
 lspconfig.jsonls.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   settings = {
     json = {
       schemas = require('schemastore').json.schemas(),
@@ -98,44 +100,19 @@ lspconfig.jsonls.setup {
 }
 
 -- Lua
-local sumneko_root_path = os.getenv 'LUA_LSP'
-local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
-local runtime_path = vim.split(package.path, ';')
-
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
-
 lspconfig.lua_ls.setup {
-  cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   settings = {
     Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false,
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
     },
   },
 }
 
 -- LaTex
 lspconfig.texlab.setup {
-  capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   settings = {
     texlab = {
       build = {
