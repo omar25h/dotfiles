@@ -27,7 +27,6 @@ vim.cmd([[syntax on]])
 if vim.wo.diff then
   vim.cmd([[syntax off]])
 end
-vim.cmd([[set laststatus=3]])
 
 vim.g.mapleader = ','
 vim.g.filetype_m = 'objc'
