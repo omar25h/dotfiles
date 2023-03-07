@@ -23,9 +23,9 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes:1'
 
-vim.cmd([[syntax on]])
+vim.cmd [[syntax on]]
 if vim.wo.diff then
-  vim.cmd([[syntax off]])
+  vim.cmd [[syntax off]]
 end
 
 vim.g.mapleader = ','
@@ -35,23 +35,27 @@ vim.g.tex_flavor = 'latex'
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = highlight_yank,
-  callback = function() vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 }) end,
+  callback = function()
+    vim.highlight.on_yank { higroup = 'Visual', timeout = 200 }
+  end,
 })
 
 -------------------------------------------------------------------------------------------------
 -- Styling
 -------------------------------------------------------------------------------------------------
 
-vim.api.nvim_exec([==[
+vim.api.nvim_exec(
+  [==[
 colorscheme gruvbox
 autocmd Filetype NvimTree,Help set signcolumn=no
 autocmd Filetype tex setl filetype=tex
 autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
-]==], false)
+]==],
+  false
+)
 
-if vim.fn.getenv('DARKMODE') == '1' then
+if vim.fn.getenv 'DARKMODE' == '1' then
   vim.api.nvim_exec([[set background=dark]], false)
 else
   vim.api.nvim_exec([[set background=light]], false)
 end
-

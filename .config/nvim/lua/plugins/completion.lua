@@ -1,16 +1,16 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-nvim-lsp",
-      "onsails/lspkind-nvim",
-      "saadparwaiz1/cmp_luasnip",
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp',
+      'onsails/lspkind-nvim',
+      'saadparwaiz1/cmp_luasnip',
     },
-    config = function ()
+    config = function()
       require 'configs.completion'
-    end
+    end,
   },
 }
