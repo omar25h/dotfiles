@@ -1,8 +1,8 @@
 -- Set up nvim-cmp
 local cmp = require 'cmp'
-local types = require('cmp.types')
+local types = require 'cmp.types'
 
-cmp.setup({
+cmp.setup {
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
@@ -24,5 +24,5 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
-  }
-})
+  },
+}

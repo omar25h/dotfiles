@@ -44,6 +44,7 @@ return {
           node_decremental = '<bs>',
         },
       },
+      additional_vim_regex_highlighting = false,
     },
     ---@param opts TSConfig
     config = function(_, opts)

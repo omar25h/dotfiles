@@ -23,12 +23,6 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes:1'
 
-vim.cmd [[syntax on]]
-if vim.wo.diff then
-  vim.cmd [[syntax off]]
-end
-
-vim.g.mapleader = ','
 vim.g.filetype_m = 'objc'
 vim.g.tex_flavor = 'latex'
 
