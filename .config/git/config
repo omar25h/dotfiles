@@ -1,6 +1,3 @@
-[include]
-	path=~/.config/git/local.config
-
 [core]
 	editor = nvim
 	eol = lf
@@ -46,3 +43,5 @@
 [color]
 	ui = always
 
+[include]
+  path = local.config
