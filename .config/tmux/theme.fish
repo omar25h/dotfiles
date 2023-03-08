@@ -1,8 +1,8 @@
 #!/usr/local/bin/fish
 alias tmux='/usr/local/bin/tmux'
 
-if ! tmux has-session
-  exit
+if ! tmux has-session; and test "$argv" != "tmux.conf"
+    exit
 end
 
 set -l MODE $(defaults read -g AppleInterfaceStyle 2>&1)
@@ -47,6 +47,8 @@ tmux setw -g window-status-format "#[bg=$COLOUR_INACTIVE_WINDOW_BG,fg=$COLOUR_ST
 tmux setw -g window-status-current-format "#[bg=$COLOUR_ACTIVE_WINDOW_BG,fg=$COLOUR_STATUS_BG,nobold,nounderscore,noitalics]#[fg=$COLOUR_ACTIVE_WINDOW_FG,bg=$COLOUR_ACTIVE_WINDOW_BG,bold] #I  #W #{p-2:window_flags} #[fg=$COLOUR_ACTIVE_WINDOW_BG,bg=$COLOUR_STATUS_BG,nobold,nounderscore,noitalics]"
 
 tmux set -g status-left "#{?client_prefix,#[fg=$COLOUR_PREFIX_ACTIVE_FG#,bg=$COLOUR_PREFIX_ACTIVE_BG],#[fg=$COLOUR_PREFIX_INACTIVE_FG#,bg=$COLOUR_PREFIX_INACTIVE_BG]}#[bold] #S #{?client_prefix,#[fg=$COLOUR_PREFIX_ACTIVE_BG],#[fg=$COLOUR_PREFIX_INACTIVE_BG]}#[bg=$COLOUR_STATUS_BG]"
+
+tmux set -g status-right ""
 
 tmux set -g message-style "fg=$COLOUR_MESSAGE_FG,bg=$COLOUR_MESSAGE_BG"
 tmux set -g message-command-style "fg=$COLOUR_MESSAGE_FG,bg=$COLOUR_MESSAGE_BG"
