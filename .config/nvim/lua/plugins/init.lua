@@ -4,6 +4,21 @@ return {
     lazy = false,
     priority = 1000,
     dependencies = { 'rktjmp/lush.nvim' },
+    config = function()
+      require('gruvbox').setup {
+        overrides = {
+          CursorLineNr = { bg = '' },
+          GruvboxAquaSign = { bg = '' },
+          GruvboxBlueSign = { bg = '' },
+          GruvboxGreenSign = { bg = '' },
+          GruvboxOrangeSign = { bg = '' },
+          GruvboxPurpleSign = { bg = '' },
+          GruvboxRedSign = { bg = '' },
+          GruvboxYellowSign = { bg = '' },
+          SignColumn = { bg = '' },
+        },
+      }
+    end,
   },
   {
     'windwp/nvim-autopairs',

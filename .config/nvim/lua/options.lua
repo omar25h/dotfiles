@@ -18,6 +18,8 @@ vim.o.swapfile = false
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 vim.o.shortmess = vim.o.shortmess .. 'c'
+vim.o.cursorlineopt = 'number'
+vim.o.cursorline = true
 
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -38,6 +40,12 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
 -- Styling
 -------------------------------------------------------------------------------------------------
 
+if vim.fn.getenv 'DARKMODE' == '1' then
+  vim.api.nvim_exec([[set background=dark]], false)
+else
+  vim.api.nvim_exec([[set background=light]], false)
+end
+
 vim.api.nvim_exec(
   [==[
 colorscheme gruvbox
@@ -47,9 +55,3 @@ autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
 ]==],
   false
 )
-
-if vim.fn.getenv 'DARKMODE' == '1' then
-  vim.api.nvim_exec([[set background=dark]], false)
-else
-  vim.api.nvim_exec([[set background=light]], false)
-end
