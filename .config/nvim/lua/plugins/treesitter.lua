@@ -12,29 +12,7 @@ return {
       highlight = { enable = true },
       indent = { enable = true, disable = { 'python' } },
       context_commentstring = { enable = true, enable_autocmd = false },
-      ensure_installed = {
-        'bash',
-        'c',
-        'fish',
-        'git_rebase',
-        'gitattributes',
-        'gitcommit',
-        'gitignore',
-        'go',
-        'help',
-        'html',
-        'javascript',
-        'json',
-        'lua',
-        'markdown',
-        'markdown_inline',
-        'query',
-        'regex',
-        'rust',
-        'toml',
-        'vim',
-        'yaml',
-      },
+      ensure_installed = 'all',
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -42,6 +20,33 @@ return {
           node_incremental = '<C-space>',
           scope_incremental = '<nop>',
           node_decremental = '<bs>',
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          keymaps = {
+            ['af'] = { query = '@function.outer', desc = 'Select outer part of a function region' },
+            ['if'] = { query = '@function.inner', desc = 'Select inner part of a function region' },
+            ['ac'] = { query = '@class.outer', desc = 'Select outer part of a class region' },
+            ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+            ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
+          },
+          selection_modes = {
+            ['@parameter.outer'] = 'v',
+            ['@function.outer'] = 'V',
+            ['@class.outer'] = '<c-v>',
+          },
+          include_surrounding_whitespace = true,
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ['<leader>a'] = '@parameter.inner',
+          },
+          swap_previous = {
+            ['<leader>A'] = '@parameter.inner',
+          },
         },
       },
       additional_vim_regex_highlighting = false,
@@ -54,5 +59,9 @@ return {
       require('nvim-treesitter.install').compilers = { 'clang' }
       require('nvim-treesitter.configs').setup(opts)
     end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
 }
