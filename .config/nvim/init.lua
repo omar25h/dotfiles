@@ -1,3 +1,11 @@
+vim.g.mapleader = ','
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
 -- Set up lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -11,8 +19,6 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
-vim.g.mapleader = ','
 
 require('lazy').setup('plugins', {
   ui = {
@@ -33,7 +39,5 @@ require('lazy').setup('plugins', {
 })
 
 require 'options'
-
-require 'configs'
 
 require 'keymaps'
