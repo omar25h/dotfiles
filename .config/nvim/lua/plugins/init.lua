@@ -11,4 +11,11 @@ return {
       require('nvim-autopairs').setup {}
     end,
   },
+  {
+    'rebelot/heirline.nvim',
+    event = 'UiEnter',
+    config = function()
+      require 'oh.statusline'
+    end,
+  },
 }
