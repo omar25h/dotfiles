@@ -48,6 +48,10 @@ lspconfig.gopls.setup {
   settings = {
     gopls = {
       ['local'] = GetGoModuleName(),
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
     },
   },
 }
