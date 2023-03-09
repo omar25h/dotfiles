@@ -5,11 +5,11 @@ return {
     { trig = 'fei', name = 'Call function with error return' },
     fmta(
       [[
-<val>, <err> := <call>
-if <same_err> != nil {
-	<handle>
-}<ending>
-]],
+        <val>, <err> := <call>
+        if <same_err> != nil {
+          <handle>
+        }<ending>
+      ]],
       {
         val = i(1, 'val'),
         err = i(2, 'err'),
@@ -20,4 +20,32 @@ if <same_err> != nil {
       }
     )
   ),
+  s(
+    { trig = 'fn', name = 'Create a function' },
+    fmta(
+      [[
+        func <name>(<args>)<return_type> {
+            <body>
+        }<cursor>
+      ]],
+      {
+        name = i(1),
+        args = i(2),
+        return_type = c(3, {
+          sn(1, { t ' (', i(1, 'string, error'), t ')' }),
+          sn(1, { t ' ', i(1, 'error') }),
+          t '',
+        }),
+        body = i(4),
+        cursor = i(0),
+      }
+    )
+  ),
+  s({ trig = 'tjs', name = 'JSON field tag' }, {
+    t '`json:"',
+    i(1, 'name'),
+    c(2, { t ',omitempty', t '' }),
+    t '"`',
+    i(0),
+  }),
 }
