@@ -33,6 +33,7 @@
 	show-skipped = !git ls-files -v . | grep ^S
 	root = rev-parse --show-toplevel
 	exec = "!exec "
+	brlen = !git branch --show-current | wc -c
 
 [merge]
 	tool = nvimdiff
