@@ -2,6 +2,7 @@
 -- General Configuration
 -------------------------------------------------------------------------------------------------
 
+vim.o.exrc = true
 vim.o.autoread = true
 vim.o.autowrite = true
 vim.o.mouse = 'nvi'
