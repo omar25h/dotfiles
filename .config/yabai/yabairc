@@ -24,13 +24,13 @@ yabai -m config window_shadow                                 float
 yabai -m rule --add app=".*"                                  border=off
 yabai -m rule --add title="^$"                                manage=off
 yabai -m rule --add title="^Copy"                             manage=off
+yabai -m rule --add title="^Save"                             manage=off
 yabai -m rule --add title="^Open"                             manage=off
 yabai -m rule --add title="^About"                            manage=off
 yabai -m rule --add title="Tip of the Day"                    manage=off
 yabai -m rule --add app="^System Settings$"                   manage=off
 yabai -m rule --add title="^TinyStopwatch History$"           manage=off
-yabai -m rule --add title="^Microsoft Teams Notification$"    manage=off
-yabai -m rule --add app="^Microsoft Teams$" title="^Meeting"  manage=off
+yabai -m rule --add app="^Microsoft Teams$"                   manage=off
 yabai -m rule --add app="^System Information$"                manage=off
 yabai -m rule --add app="1Password"                           manage=off
 yabai -m rule --add app="Notes"                               manage=off
