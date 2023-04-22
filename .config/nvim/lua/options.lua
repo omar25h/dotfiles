@@ -37,22 +37,35 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   end,
 })
 
+-- Open terminal in insert mode without line numbers
+-- autocmd TermOpen * startinsert
+local term_autocmds = vim.api.nvim_create_augroup('Term', { clear = true })
+vim.api.nvim_create_autocmd({ 'TermOpen' }, {
+  group = term_autocmds,
+  callback = function()
+    vim.api.nvim_exec2('startinsert', { output = false })
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.signcolumn = 'no'
+  end,
+})
+
 -------------------------------------------------------------------------------------------------
 -- Styling
 -------------------------------------------------------------------------------------------------
 
 if vim.fn.getenv 'DARKMODE' == '1' then
-  vim.api.nvim_exec([[set background=dark]], false)
+  vim.api.nvim_exec2([[set background=dark]], { output = false })
 else
-  vim.api.nvim_exec([[set background=light]], false)
+  vim.api.nvim_exec2([[set background=light]], { output = false })
 end
 
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [==[
 colorscheme gruvbox
 autocmd Filetype NvimTree,Help set signcolumn=no
 autocmd Filetype tex setl filetype=tex
 autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
 ]==],
-  false
+  { output = false }
 )
