@@ -27,6 +27,12 @@ return {
     end,
   },
   {
+    'kylechui/nvim-surround',
+    config = function()
+      require('nvim-surround').setup {}
+    end,
+  },
+  {
     'rebelot/heirline.nvim',
     event = 'UiEnter',
     config = function()
