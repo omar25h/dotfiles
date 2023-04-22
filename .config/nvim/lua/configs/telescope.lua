@@ -1,8 +1,21 @@
-require('telescope').setup {
+local telescope = require 'telescope'
+
+telescope.setup {
   pickers = {
+    buffers = {
+      show_all_buffers = true,
+      sort_lastused = true,
+      mappings = {
+        i = {
+          ['<c-d>'] = 'delete_buffer',
+        },
+        n = {
+          ['d'] = 'delete_buffer',
+        },
+      },
+    },
     find_files = {
       hidden = true,
-      -- find_command = { 'rg', '--hidden'},
     },
     live_grep = {
       additional_args = function()
@@ -12,14 +25,13 @@ require('telescope').setup {
   },
   extensions = {
     fzf = {
-      fuzzy = true, -- false will only do exact matching
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = 'smart_case',
     },
   },
 }
 
-require('telescope').load_extension 'fzf'
-require('telescope').load_extension 'live_grep_args'
+telescope.load_extension 'fzf'
+telescope.load_extension 'live_grep_args'
