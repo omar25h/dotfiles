@@ -1,4 +1,5 @@
 ---@diagnostic disable: undefined-global
+local caser = require 'oh.caser.util'
 
 return {
   s(
@@ -43,8 +44,18 @@ return {
   ),
   s({ trig = 'tjs', name = 'JSON field tag' }, {
     t '`json:"',
-    i(1, 'name'),
-    c(2, { t ',omitempty', t '' }),
+    d(1, function()
+      local text = 'name'
+      local node = vim.treesitter.get_node()
+      if node and node:type() == 'field_declaration' then
+        node = node:child(0)
+        text = caser.convert_to_snake_case(vim.treesitter.get_node_text(node, 0))
+      end
+      return s('', {
+        i(1, text),
+      })
+    end),
+    c(2, { t '', t ',omitempty' }),
     t '"`',
     i(0),
   }),
