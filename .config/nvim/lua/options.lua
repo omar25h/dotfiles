@@ -69,3 +69,10 @@ autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
 ]==],
   { output = false }
 )
+
+vim.api.nvim_set_keymap(
+  'n',
+  '<Leader>s',
+  '<cmd>lua require("oh.caser").switch_case()<CR>',
+  { noremap = true, silent = true }
+)
