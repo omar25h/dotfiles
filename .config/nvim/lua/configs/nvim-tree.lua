@@ -35,3 +35,11 @@ require('nvim-tree').setup {
     end,
   },
 }
+
+local api = require 'nvim-tree.api'
+local Event = api.events.Event
+
+api.events.subscribe(Event.TreeOpen, function()
+  vim.wo.signcolumn = 'no'
+  vim.wo.fillchars = 'eob: '
+end)

@@ -63,7 +63,7 @@ end
 vim.api.nvim_exec2(
   [==[
 colorscheme gruvbox
-autocmd Filetype NvimTree,Help set signcolumn=no
+autocmd Filetype Help set signcolumn=no
 autocmd Filetype tex setl filetype=tex
 autocmd Filetype * set expandtab shiftwidth=2 tabstop=2
 ]==],

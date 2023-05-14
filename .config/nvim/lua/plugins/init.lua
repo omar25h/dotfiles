@@ -18,6 +18,8 @@ return {
           SignColumn = { bg = '' },
         },
       }
+
+      vim.cmd 'highlight link NvimTreeNormalFloat GruvboxFg1'
     end,
   },
   {
