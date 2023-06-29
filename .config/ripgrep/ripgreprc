@@ -1,5 +1,11 @@
 # Add types
 --type-add
+gomod:go.mod
+
+--type-add
+gosum:go.sum
+
+--type-add
 env:*.env
 
 --type-add
