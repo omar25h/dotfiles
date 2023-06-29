@@ -49,3 +49,6 @@
 
 [include]
   path = local.config
+
+[push]
+	autoSetupRemote = true
