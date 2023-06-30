@@ -1,10 +1,18 @@
 -- Set up nvim-cmp
 local cmp = require 'cmp'
 local types = require 'cmp.types'
+local lspkind = require 'lspkind'
 
 cmp.setup {
   snippet = {
     expand = function(args) require('luasnip').lsp_expand(args.body) end,
+  },
+  formatting = {
+    format = lspkind.cmp_format {
+      mode = 'symbol_text',
+      maxwidth = 50,
+      ellipsis_char = '...',
+    },
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item { behavior = types.cmp.SelectBehavior.Insert },
