@@ -15,7 +15,7 @@ vim.keymap.set(
 vim.keymap.set(
   'n',
   '<Leader><Leader>s',
-  function() vim.cmd.source '~/.config/nvim/lua/configs/snippets.lua' end,
+  function() vim.cmd.source '~/.config/nvim/lua/oh/snippets.lua' end,
   { desc = 'Reload snippets' }
 )
 vim.keymap.set('n', '<Leader><Leader>w', vim.cmd.w, { desc = 'Write file' })

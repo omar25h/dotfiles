@@ -36,6 +36,6 @@ require('lazy').setup('plugins', {
   },
 })
 
-require 'options'
+require 'oh.options'
 
-require 'keymaps'
+require 'oh.keymaps'

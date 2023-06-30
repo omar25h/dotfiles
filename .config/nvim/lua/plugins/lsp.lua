@@ -7,7 +7,7 @@ return {
         config = function() require('neodev').setup {} end,
       },
     },
-    config = function() require 'configs.lsp' end,
+    config = function() require 'oh.lsp' end,
   },
   'b0o/schemastore.nvim',
 }

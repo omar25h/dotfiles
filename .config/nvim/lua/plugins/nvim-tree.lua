@@ -4,6 +4,6 @@ return {
     dependencies = {
       'kyazdani42/nvim-web-devicons',
     },
-    config = function() require 'configs.nvim-tree' end,
+    config = function() require 'oh.nvim-tree' end,
   },
 }
