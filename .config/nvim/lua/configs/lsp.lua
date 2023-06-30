@@ -10,17 +10,23 @@ local capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_ca
 -- Rust
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
+  settings = {
+    ['rust-analyzer'] = {
+      inlayHints = {},
+    },
+  },
 }
 
 -- C/C++/Objective-C
-lspconfig.ccls.setup {
+lspconfig.clangd.setup {
   capabilities = capabilities,
 }
 
 -- Golang
 
--- see if the file exists
-function FileExists(file)
+-- check whether the file exists
+-- TODO: move to a common module
+function file_exists(file)
   local f = io.open(file, 'rb')
   if f then
     f:close()
@@ -29,8 +35,8 @@ function FileExists(file)
 end
 
 -- Get the value of the module name from go.mod in PWD
-function GetGoModuleName()
-  if not FileExists 'go.mod' then
+function get_go_module_name()
+  if not file_exists 'go.mod' then
     return nil
   end
   for line in io.lines 'go.mod' do
@@ -47,40 +53,21 @@ lspconfig.gopls.setup {
   capabilities = capabilities,
   settings = {
     gopls = {
-      ['local'] = GetGoModuleName(),
+      ['local'] = get_go_module_name(),
       analyses = {
         unusedparams = true,
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
       },
       staticcheck = true,
     },
   },
 }
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.go' },
-  callback = function()
-    vim.lsp.buf.format { timeout_ms = 5000 }
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.go' },
-  callback = function()
-    local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding(0))
-    params.context = { only = { 'source.organizeImports' } }
-
-    local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 7000)
-    for _, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding(0))
-        else
-          vim.lsp.buf.execute_command(r.command)
-        end
-      end
-    end
-  end,
-})
 
 -- JavaScript/TypeScript
 lspconfig.tsserver.setup {
