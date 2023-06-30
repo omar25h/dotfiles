@@ -24,21 +24,15 @@ return {
   },
   {
     'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup {}
-    end,
+    config = function() require('nvim-autopairs').setup {} end,
   },
   {
     'kylechui/nvim-surround',
-    config = function()
-      require('nvim-surround').setup {}
-    end,
+    config = function() require('nvim-surround').setup {} end,
   },
   {
     'rebelot/heirline.nvim',
     event = 'UiEnter',
-    config = function()
-      require 'oh.statusline'
-    end,
+    config = function() require 'oh.statusline' end,
   },
 }

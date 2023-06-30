@@ -42,9 +42,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = highlight_yank,
-  callback = function()
-    vim.highlight.on_yank { higroup = 'Visual', timeout = 200 }
-  end,
+  callback = function() vim.highlight.on_yank { higroup = 'Visual', timeout = 200 } end,
 })
 
 -- Open terminal in insert mode without line numbers
@@ -66,14 +64,6 @@ vim.api.nvim_create_autocmd({ 'TermOpen' }, {
 
 vim.cmd.colorscheme 'gruvbox'
 
-local function get_background()
-  local background = 'light'
-
-  if vim.fn.getenv 'DARKMODE' == '1' then
-    background = 'dark'
-  end
-
-  return background
-end
+local function get_background() return vim.fn.getenv 'DARKMODE' == '1' and 'dark' or 'light' end
 
 vim.o.background = get_background()

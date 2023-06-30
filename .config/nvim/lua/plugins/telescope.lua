@@ -10,8 +10,6 @@ return {
       },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
     },
-    config = function()
-      require 'configs.telescope'
-    end,
+    config = function() require 'configs.telescope' end,
   },
 }

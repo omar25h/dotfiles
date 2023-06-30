@@ -2,7 +2,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
 local HEIGHT_RATIO = 0.8
 local WIDTH_RATIO = 0.5
@@ -30,9 +30,7 @@ require('nvim-tree').setup {
         }
       end,
     },
-    width = function()
-      return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
-    end,
+    width = function() return math.floor(vim.opt.columns:get() * WIDTH_RATIO) end,
   },
 }
 

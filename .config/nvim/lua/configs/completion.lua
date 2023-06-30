@@ -4,9 +4,7 @@ local types = require 'cmp.types'
 
 cmp.setup {
   snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
+    expand = function(args) require('luasnip').lsp_expand(args.body) end,
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item { behavior = types.cmp.SelectBehavior.Insert },

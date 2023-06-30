@@ -17,9 +17,7 @@ local function find_stylua(path)
 
     local relative_diff = #file_parents - #root_parents
     for index, dir in ipairs(file_parents) do
-      if index > relative_diff then
-        break
-      end
+      if index > relative_diff then break end
 
       local stylua_path = Path:new { dir, 'stylua.toml' }
       if stylua_path:exists() then
@@ -53,9 +51,7 @@ function M.format(opts)
   local args = {}
 
   -- If stylua.toml was not found, run with cli defaults
-  if stylua_toml then
-    args = { '--config-path', stylua_toml }
-  end
+  if stylua_toml then args = { '--config-path', stylua_toml } end
 
   table.insert(args, '-')
 
@@ -64,16 +60,12 @@ function M.format(opts)
     command = 'stylua',
     args = args,
     writer = vim.api.nvim_buf_get_lines(0, 0, -1, false),
-    on_stderr = function(_, data)
-      table.insert(errors, data)
-    end,
+    on_stderr = function(_, data) table.insert(errors, data) end,
   }
 
   local output = job:sync()
   if job.code ~= 0 then
-    vim.schedule(function()
-      error(string.format('[stylua] %s', errors[1] or 'Failed to format due to errors'))
-    end)
+    vim.schedule(function() error(string.format('[stylua] %s', errors[1] or 'Failed to format due to errors')) end)
 
     return
   end

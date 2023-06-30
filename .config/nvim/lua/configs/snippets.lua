@@ -23,19 +23,13 @@ ls.config.set_config {
 require('luasnip.loaders.from_lua').lazy_load()
 
 vim.keymap.set({ 's', 'i' }, '<c-l>', function()
-  if ls.choice_active() then
-    ls.change_choice(1)
-  end
-end, { desc = 'Scroll through choice nodes', noremap = true })
+  if ls.choice_active() then ls.change_choice(1) end
+end, { desc = 'Scroll through choice nodes' })
 
 vim.keymap.set({ 's', 'i' }, '<c-k>', function()
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
-  end
-end, { desc = 'Expand or jump snippet', noremap = true })
+  if ls.expand_or_jumpable() then ls.expand_or_jump() end
+end, { desc = 'Expand or jump snippet' })
 
 vim.keymap.set({ 's', 'i' }, '<c-s>', function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  end
-end, { desc = 'Jump backwards snippet', noremap = true })
+  if ls.jumpable(-1) then ls.jump(-1) end
+end, { desc = 'Jump backwards snippet' })

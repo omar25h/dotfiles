@@ -9,9 +9,7 @@ vim.bo.tabstop = 4
 vim.api.nvim_buf_create_user_command(0, 'GoAddTags', function(cmd)
   local file_name = vim.fn.expand '%'
   local output = vim.fn.systemlist('gomodifytags -all -file ' .. file_name .. ' -add-tags ' .. cmd.args, nil, 0)
-  if output[#output] == '' then
-    table.remove(output, #output)
-  end
+  if output[#output] == '' then table.remove(output, #output) end
   vim.api.nvim_buf_set_lines(0, 0, -1, true, output)
 end, {
   nargs = '+',
@@ -20,9 +18,7 @@ end, {
 vim.api.nvim_buf_create_user_command(0, 'GoRemoveTags', function(cmd)
   local file_name = vim.fn.expand '%'
   local output = vim.fn.systemlist('gomodifytags -all -file ' .. file_name .. ' -remove-tags ' .. cmd.args, nil, 0)
-  if output[#output] == '' then
-    table.remove(output, #output)
-  end
+  if output[#output] == '' then table.remove(output, #output) end
   vim.api.nvim_buf_set_lines(0, 0, -1, true, output)
 end, {
   nargs = '+',
@@ -31,9 +27,7 @@ end, {
 vim.api.nvim_buf_create_user_command(0, 'GoClearTags', function()
   local file_name = vim.fn.expand '%'
   local updated = vim.fn.systemlist('gomodifytags -all -file ' .. file_name .. ' -clear-tags ', nil, 0)
-  if updated[#updated] == '' then
-    table.remove(updated, #updated)
-  end
+  if updated[#updated] == '' then table.remove(updated, #updated) end
   vim.api.nvim_buf_set_lines(0, 0, -1, true, updated)
 end, {
   nargs = 0,
@@ -42,9 +36,7 @@ end, {
 vim.api.nvim_buf_create_user_command(0, 'GoModifyTags', function(cmd)
   local file_name = vim.fn.expand '%'
   local updated = vim.fn.systemlist('gomodifytags -all -file ' .. file_name .. ' ' .. cmd.args, nil, 0)
-  if updated[#updated] == '' then
-    table.remove(updated, #updated)
-  end
+  if updated[#updated] == '' then table.remove(updated, #updated) end
   vim.api.nvim_buf_set_lines(0, 0, -1, true, updated)
 end, {
   nargs = '*',
@@ -54,9 +46,7 @@ local go_group = vim.api.nvim_create_augroup('Go', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = go_group,
   pattern = { '*.go' },
-  callback = function()
-    vim.lsp.buf.format { timeout_ms = 5000 }
-  end,
+  callback = function() vim.lsp.buf.format { timeout_ms = 5000 } end,
 })
 
 vim.api.nvim_create_autocmd('BufWritePre', {

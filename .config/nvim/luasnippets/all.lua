@@ -22,27 +22,19 @@ local function create_special_comment(name)
     i(2),
   }
 
-  if #parts == 2 then
-    table.insert(nodes, t(parts[2]))
-  end
+  if #parts == 2 then table.insert(nodes, t(parts[2])) end
 
   return nodes
 end
 
 return {
   s({ trig = 'fixme', name = 'FIXME' }, {
-    d(1, function()
-      return s('', create_special_comment 'FIXME')
-    end),
+    d(1, function() return s('', create_special_comment 'FIXME') end),
   }),
   s({ trig = 'todo', name = 'TODO' }, {
-    d(1, function()
-      return s('', create_special_comment 'TODO')
-    end),
+    d(1, function() return s('', create_special_comment 'TODO') end),
   }),
   s({ trig = 'note', name = 'NOTE' }, {
-    d(1, function()
-      return s('', create_special_comment 'NOTE')
-    end),
+    d(1, function() return s('', create_special_comment 'NOTE') end),
   }),
 }, {}

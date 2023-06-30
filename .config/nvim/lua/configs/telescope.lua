@@ -18,9 +18,7 @@ telescope.setup {
       hidden = true,
     },
     live_grep = {
-      additional_args = function()
-        return { '--hidden', '--glob=!.git/' }
-      end,
+      additional_args = function() return { '--hidden', '--glob=!.git/' } end,
     },
   },
   extensions = {

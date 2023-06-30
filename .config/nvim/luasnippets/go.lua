@@ -8,9 +8,7 @@ local caser = require 'oh.caser.util'
 local get_tag_name = function(node, pos)
   local text = 'name'
 
-  if not node or node:type() ~= 'field_declaration_list' then
-    return text
-  end
+  if not node or node:type() ~= 'field_declaration_list' then return text end
 
   -- Loop in reverse order and check for the first entry that
   -- starts before the current cursor position.
@@ -77,17 +75,13 @@ return {
     name = 'JSON field tag',
     show_condition = function()
       local node = vim.treesitter.get_node()
-      if not node then
-        return false
-      end
+      if not node then return false end
 
       while node and node:type() ~= 'struct_type' do
         node = node:parent()
       end
 
-      if not node then
-        return false
-      end
+      if not node then return false end
 
       return true
     end,
@@ -99,11 +93,9 @@ return {
         node = node:parent()
       end
 
-      if not node then
-        return s('', {
-          i(1, text),
-        })
-      end
+      if not node then return s('', {
+        i(1, text),
+      }) end
 
       return s('', {
         i(1, get_tag_name(node, vim.api.nvim_win_get_cursor(0))),

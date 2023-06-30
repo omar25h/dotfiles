@@ -28,17 +28,13 @@ lspconfig.clangd.setup {
 -- TODO: move to a common module
 function file_exists(file)
   local f = io.open(file, 'rb')
-  if f then
-    f:close()
-  end
+  if f then f:close() end
   return f ~= nil
 end
 
 -- Get the value of the module name from go.mod in PWD
 function get_go_module_name()
-  if not file_exists 'go.mod' then
-    return nil
-  end
+  if not file_exists 'go.mod' then return nil end
   for line in io.lines 'go.mod' do
     if vim.startswith(line, 'module') then
       local items = vim.split(line, ' ')

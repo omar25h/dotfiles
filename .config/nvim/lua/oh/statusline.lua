@@ -94,9 +94,7 @@ local ViMode = {
     },
   },
 
-  provider = function(self)
-    return '  %2(' .. self.mode_names[self.mode] .. '%) '
-  end,
+  provider = function(self) return '  %2(' .. self.mode_names[self.mode] .. '%) ' end,
 
   hl = function(self)
     local mode = self.mode:sub(1, 1)
@@ -108,9 +106,7 @@ local ViMode = {
 }
 
 local FileNameBlock = {
-  init = function(self)
-    self.filename = vim.api.nvim_buf_get_name(0)
-  end,
+  init = function(self) self.filename = vim.api.nvim_buf_get_name(0) end,
 }
 
 local FileIcon = {
@@ -120,33 +116,23 @@ local FileIcon = {
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
 
-  provider = function(self)
-    return self.icon and (' ' .. self.icon .. ' ')
-  end,
+  provider = function(self) return self.icon and (' ' .. self.icon .. ' ') end,
 
-  hl = function(self)
-    return { fg = self.icon_color }
-  end,
+  hl = function(self) return { fg = self.icon_color } end,
 }
 
 local FileName = {
-  init = function(self)
-    self.filename = vim.api.nvim_buf_get_name(0)
-  end,
+  init = function(self) self.filename = vim.api.nvim_buf_get_name(0) end,
 
   provider = function(self)
     -- Trim the pattern relative to the current directory.
     -- See :h filename-modifers for other options.
     local filename = vim.fn.fnamemodify(self.filename, ':.')
-    if filename == '' then
-      return '[No Name] '
-    end
+    if filename == '' then return '[No Name] ' end
 
     -- If the filename occupies more than 1/4th of the available
     -- space, trim the file path to its initials
-    if not conditions.width_percent_below(#filename, 0.25) then
-      filename = vim.fn.pathshorten(filename)
-    end
+    if not conditions.width_percent_below(#filename, 0.25) then filename = vim.fn.pathshorten(filename) end
     return filename .. ' '
   end,
 
@@ -155,16 +141,12 @@ local FileName = {
 
 local FileFlags = {
   {
-    condition = function()
-      return vim.bo.modified
-    end,
+    condition = function() return vim.bo.modified end,
     provider = '+',
     hl = { fg = 'green' },
   },
   {
-    condition = function()
-      return not vim.bo.modifiable or vim.bo.readonly
-    end,
+    condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
     provider = '',
     hl = { fg = 'orange' },
   },
