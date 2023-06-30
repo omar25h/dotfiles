@@ -20,7 +20,19 @@ return {
       }
       vim.api.nvim_create_autocmd('ColorScheme', {
         pattern = '*',
-        callback = function() vim.api.nvim_set_hl(0, 'NvimTreeNormalFloat', { link = 'GruvboxFg1' }) end,
+        callback = function()
+          local hl_link = function(group, link) vim.api.nvim_set_hl(0, group, { link = link }) end
+          hl_link('NvimTreeNormalFloat', 'GruvboxFg1')
+          hl_link('NvimTreeWinSeparator', 'GruvboxFg1')
+          hl_link('WhichKeyBorder', 'FloatBorder')
+          hl_link('WhichKey', 'Function')
+          hl_link('WhichKeyGroup', 'Keyword')
+          hl_link('WhichKeySeparator', 'DiffAdd')
+          hl_link('WhichKeyDesc', 'Identifier')
+          hl_link('WhichKeyFloat', 'NormalFloat')
+          hl_link('WhichKeyBorder', 'FloatBorder')
+          hl_link('WhichKeyValue', 'Comment')
+        end,
       })
 
       vim.cmd.colorscheme 'gruvbox'
@@ -39,5 +51,13 @@ return {
     'rebelot/heirline.nvim',
     event = 'UiEnter',
     config = function() require 'oh.statusline' end,
+  },
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 1000
+    end,
   },
 }
