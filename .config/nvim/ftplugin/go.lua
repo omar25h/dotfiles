@@ -2,31 +2,6 @@ vim.bo.expandtab = false
 vim.bo.shiftwidth = 4
 vim.bo.tabstop = 4
 
--- see if the file exists
--- TODO: move to a common module
-local function file_exists(file)
-  local f = io.open(file, 'rb')
-  if f then
-    f:close()
-  end
-  return f ~= nil
-end
-
--- Get the value of the module name from go.mod in PWD
-local function get_go_module_name()
-  if not file_exists 'go.mod' then
-    return nil
-  end
-  for line in io.lines 'go.mod' do
-    if vim.startswith(line, 'module') then
-      local items = vim.split(line, ' ')
-      local module_name = vim.trim(items[2])
-      return module_name
-    end
-  end
-  return nil
-end
-
 -- Example gomodifytags usage:
 --
 -- gomodifytags -file model/address.go -all -clear-options -clear-tags -add-tags json -transform snakecase -w
@@ -75,7 +50,9 @@ end, {
   nargs = '*',
 })
 
+local go_group = vim.api.nvim_create_augroup('Go', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
+  group = go_group,
   pattern = { '*.go' },
   callback = function()
     vim.lsp.buf.format { timeout_ms = 5000 }
@@ -83,6 +60,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 vim.api.nvim_create_autocmd('BufWritePre', {
+  group = go_group,
   pattern = { '*.go' },
   callback = function()
     local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding(0))

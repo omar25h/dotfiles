@@ -216,13 +216,13 @@ local LSPActive = {
 local Align = { provider = '%=' }
 local Space = { provider = ' ' }
 
-vim.api.nvim_create_augroup('Heirline', { clear = true })
+local heirline_group = vim.api.nvim_create_augroup('Heirline', { clear = true })
 vim.api.nvim_create_autocmd('ColorScheme', {
+  group = heirline_group,
   callback = function()
     local colors = setup_colors()
     utils.on_colorscheme(colors)
   end,
-  group = 'Heirline',
 })
 
 heirline.setup {

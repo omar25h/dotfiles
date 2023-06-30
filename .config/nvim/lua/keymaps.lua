@@ -42,3 +42,8 @@ vim.keymap.set(
 )
 vim.keymap.set('n', '<Leader>fb', '<Cmd>Telescope buffers<CR>', { noremap = true })
 vim.keymap.set('n', '<Leader>fh', '<Cmd>Telescope help_tags<CR>', { noremap = true })
+
+-- Misc
+vim.keymap.set('n', '<Leader>s', function()
+  require('oh.caser').switch_case()
+end, { noremap = true, silent = true })
