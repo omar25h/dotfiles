@@ -18,8 +18,13 @@ return {
           SignColumn = { bg = '' },
         },
       }
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = function() vim.api.nvim_set_hl(0, 'NvimTreeNormalFloat', { link = 'GruvboxFg1' }) end,
+      })
 
-      vim.cmd 'highlight link NvimTreeNormalFloat GruvboxFg1'
+      vim.cmd.colorscheme 'gruvbox'
+      vim.o.background = vim.fn.getenv 'DARKMODE' == '1' and 'dark' or 'light'
     end,
   },
   {

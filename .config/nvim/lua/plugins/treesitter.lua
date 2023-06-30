@@ -53,9 +53,6 @@ return {
     },
     ---@param opts TSConfig
     config = function(_, opts)
-      vim.o.foldmethod = 'expr'
-      vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.o.foldenable = false
       require('nvim-treesitter.install').compilers = { 'clang' }
       require('nvim-treesitter.configs').setup(opts)
     end,
