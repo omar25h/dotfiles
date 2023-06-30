@@ -11,6 +11,7 @@ vim.o.exrc = true
 vim.o.hlsearch = true
 vim.o.ignorecase = true
 vim.o.laststatus = 3
+vim.o.list = true
 vim.o.mouse = 'nvi'
 vim.o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 vim.o.smartcase = true
@@ -19,6 +20,8 @@ vim.o.splitright = true
 vim.o.swapfile = false
 vim.o.termguicolors = true
 vim.o.wildmenu = true
+vim.opt.fillchars = { eob = '·' }
+vim.opt.listchars = { nbsp = '␣', trail = '·', tab = '» ' }
 vim.opt.path:append ',**'
 vim.opt.shortmess:append 'c'
 
@@ -28,16 +31,6 @@ vim.wo.signcolumn = 'yes:1'
 
 vim.g.filetype_m = 'objc'
 vim.g.tex_flavor = 'latex'
-
-local filetype_group = vim.api.nvim_create_augroup('Filetype', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  group = filetype_group,
-  callback = function()
-    vim.bo.expandtab = true
-    vim.bo.shiftwidth = 2
-    vim.bo.tabstop = 2
-  end,
-})
 
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
