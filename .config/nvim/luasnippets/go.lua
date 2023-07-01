@@ -1,35 +1,61 @@
 ---@diagnostic disable: undefined-global
 local caser = require 'oh.caser.util'
-
----comment
----@param node TSNode
----@param pos integer[]
----@return string
-local get_tag_name = function(node, pos)
-  local text = 'name'
-
-  if not node or node:type() ~= 'field_declaration_list' then return text end
-
-  -- Loop in reverse order and check for the first entry that
-  -- starts before the current cursor position.
-  for i = node:named_child_count() - 1, 0, -1 do
-    local child_node = node:named_child(i)
-    if child_node:type() == 'field_declaration' then
-      local start_row, start_column, _, _ = child_node:range()
-
-      if start_row <= pos[1] - 1 and start_column <= pos[2] then
-        local field_name_node = child_node:named_child(0)
-        text = vim.treesitter.get_node_text(field_name_node, 0)
-        text = caser.convert_to_snake_case(text)
-        return text
-      end
-    end
-  end
-
-  return text
-end
+local ts_util = require('oh.treesitter.util').go
 
 return {
+  s(
+    { trig = 'iferr', name = 'Handle error' },
+    fmta(
+      [[
+        if <err> != nil {
+          <handle>
+        }<cursor>
+      ]],
+      {
+        err = i(1, 'err'),
+        handle = d(2, function(args)
+          -- Get current function parameter
+          local node = vim.treesitter.get_node()
+          while node and node:type() ~= 'function_declaration' do
+            node = node:parent()
+          end
+
+          if not node then return s('', {
+            i(1, 'return'),
+          }) end
+
+          local result_node = node:field('result')[1]
+
+          if result_node:type() == 'type_identifier' then
+            return s('', {
+              t 'return ',
+              i(1, args[1][1]),
+            })
+          elseif result_node:type() == 'parameter_list' then
+            -- take each param and provide default value,
+            -- except for the last one
+            local nodes = { t 'return ' }
+            for idx = 0, result_node:named_child_count() - 1, 1 do
+              local node_text = vim.treesitter.get_node_text(result_node:named_child(idx), 0)
+              if node_text == 'string' then
+                table.insert(nodes, i(idx + 1, '""'))
+              elseif node_text == 'error' then
+                table.insert(nodes, i(idx + 1, args[1][1]))
+              else
+                table.insert(nodes, i(idx + 1, node_text))
+              end
+              if idx < result_node:named_child_count() - 1 then table.insert(nodes, t ', ') end
+            end
+
+            return s('', nodes)
+          else
+            return s('', { t 'return' })
+          end
+        end, { 1 }),
+        cursor = i(0),
+      }
+    )
+  ),
   s(
     { trig = 'fei', name = 'Call function with error return' },
     fmta(
@@ -60,11 +86,27 @@ return {
       {
         name = i(1),
         args = i(2),
-        return_type = c(3, {
-          sn(1, { t ' (', i(1, 'string, error'), t ')' }),
-          sn(1, { t ' ', i(1, 'error') }),
-          t '',
-        }),
+        return_type = d(3, function()
+          return s('', {
+            f(function(args)
+              if args[1][1]:match '[^( ] [^ )]' or args[1][1]:match ',' then
+                return ' ('
+              elseif #args[1][1] > 0 then
+                return ' '
+              else
+                return ''
+              end
+            end, { 1 }),
+            i(1),
+            f(function(args)
+              if args[1][1]:match '[^( ] [^ )]' or args[1][1]:match ',' then
+                return ')'
+              else
+                return ''
+              end
+            end, { 1 }),
+          })
+        end),
         body = i(4),
         cursor = i(0),
       }
@@ -73,35 +115,16 @@ return {
   s({
     trig = 'tjs',
     name = 'JSON field tag',
-    show_condition = function()
-      local node = vim.treesitter.get_node()
-      if not node then return false end
-
-      while node and node:type() ~= 'struct_type' do
-        node = node:parent()
-      end
-
-      if not node then return false end
-
-      return true
-    end,
+    show_condition = function() ts_util.is_in_struct_definition(vim.treesitter.get_node()) end,
   }, {
     t '`json:"',
     d(1, function()
-      local node = vim.treesitter.get_node()
-      while node and node:type() ~= 'field_declaration_list' do
-        node = node:parent()
-      end
-
-      if not node then return s('', {
-        i(1, text),
-      }) end
-
+      local tag = ts_util.get_field_name(vim.treesitter.get_node(), vim.api.nvim_win_get_cursor(0), 'name')
       return s('', {
-        i(1, get_tag_name(node, vim.api.nvim_win_get_cursor(0))),
+        i(1, caser.convert_to_snake_case(tag)),
       })
     end),
-    c(2, { t '', t ',omitempty' }),
+    i(2, ''),
     t '"`',
     i(0),
   }),
