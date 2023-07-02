@@ -12,7 +12,10 @@ local function get_lua_workspace_files()
   local paths = {}
   for _, f in ipairs(vim.api.nvim_get_runtime_file('', true)) do
     paths[#paths + 1] = f:gsub('/lazy/([^/]+)$', '/lazy/%1/lua')
-    if f:match '/lazy/neodev.nvim' then paths[#paths + 1] = f:gsub('/lazy/([^/]+)$', '/lazy/%1/types/nightly') end
+    if f:match '/lazy/neodev.nvim' then
+      local version = not vim.version().prerelease and 'stable' or 'nightly'
+      paths[#paths + 1] = f:gsub('/lazy/([^/]+)$', '/lazy/%1/types/' .. version)
+    end
   end
 
   return paths
