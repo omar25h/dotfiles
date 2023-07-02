@@ -86,12 +86,28 @@ lspconfig.jsonls.setup {
   },
 }
 
+---@return string[]
+local function get_lua_workspace_files()
+  local files = vim.api.nvim_get_runtime_file('', true)
+  for i in ipairs(files) do
+    files[i] = files[i]:gsub('/lazy/([^/]+)$', '/lazy/%1/lua')
+  end
+
+  return files
+end
+
 -- Lua
 lspconfig.lua_ls.setup {
   capabilities = capabilities,
   settings = {
     Lua = {
-      workspace = { checkThirdParty = false },
+      runtime = {
+        version = 'LuaJIT',
+      },
+      workspace = {
+        library = get_lua_workspace_files(),
+        checkThirdParty = false,
+      },
       telemetry = { enable = false },
     },
   },
