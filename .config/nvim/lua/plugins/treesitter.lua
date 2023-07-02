@@ -4,7 +4,6 @@ return {
     version = false,
     build = ':TSUpdate',
     dependencies = {
-      'nvim-treesitter/completion-treesitter',
       'nvim-treesitter/nvim-treesitter-context',
     },
     ---@type TSConfig
