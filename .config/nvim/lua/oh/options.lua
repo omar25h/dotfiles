@@ -39,7 +39,7 @@ local augroup_fold = vim.api.nvim_create_augroup('fold', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost' }, {
   group = augroup_fold,
   callback = function()
-    vim.wo.foldenable = false
+    vim.wo.foldenable = true
     vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
     vim.wo.foldmethod = 'expr'
 
