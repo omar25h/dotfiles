@@ -9,6 +9,6 @@ return {
       'onsails/lspkind-nvim',
       'saadparwaiz1/cmp_luasnip',
     },
-    config = function() require 'oh.completion' end,
+    config = function() require('oh.completion').setup() end,
   },
 }

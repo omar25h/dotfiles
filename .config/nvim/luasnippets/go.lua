@@ -115,7 +115,7 @@ return {
   s({
     trig = 'tjs',
     name = 'JSON field tag',
-    show_condition = function() ts_util.is_in_struct_definition(vim.treesitter.get_node()) end,
+    show_condition = function() return ts_util.is_in_struct_definition(vim.treesitter.get_node()) end,
   }, {
     t '`json:"',
     d(1, function()

@@ -21,7 +21,7 @@ return {
       vim.api.nvim_create_autocmd('ColorScheme', {
         pattern = '*',
         callback = function()
-          local hl_link = function(group, link) vim.api.nvim_set_hl(0, group, { link = link }) end
+          local function hl_link(group, link) vim.api.nvim_set_hl(0, group, { link = link }) end
           hl_link('NvimTreeNormalFloat', 'GruvboxFg1')
           hl_link('NvimTreeWinSeparator', 'GruvboxFg1')
           hl_link('WhichKeyBorder', 'FloatBorder')

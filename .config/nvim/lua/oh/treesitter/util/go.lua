@@ -2,10 +2,10 @@ local M = {}
 
 ---Get closest field name at cursor position
 ---@param node TSNode|nil
----@param pos integer[]
+---@param pos number[]
 ---@param fallback string
 ---@return string
-M.get_field_name = function(node, pos, fallback)
+function M.get_field_name(node, pos, fallback)
   while node and node:type() ~= 'field_declaration_list' do
     node = node:parent()
   end
@@ -32,7 +32,7 @@ end
 ---Check whether node is in struct_type node
 ---@param node TSNode|nil
 ---@return boolean
-M.is_in_struct_definition = function(node)
+function M.is_in_struct_definition(node)
   while node and node:type() ~= 'struct_type' do
     node = node:parent()
   end
