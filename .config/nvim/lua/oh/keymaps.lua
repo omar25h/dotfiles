@@ -12,7 +12,7 @@ vim.keymap.set(
   function() require('nvim-tree.api').tree.toggle { find_file = true, focus = true } end,
   { desc = 'Toggle nvim-tree' }
 )
-vim.keymap.set('n', '<Leader><Leader>s', require('oh.snippets').reload_snippets, { desc = 'Reload snippets' })
+vim.keymap.set('n', '<Leader><Leader>s', function() require('oh.snippets').reload() end, { desc = 'Reload snippets' })
 vim.keymap.set('n', '<Leader><Leader>w', vim.cmd.w, { desc = 'Write file' })
 vim.keymap.set('n', '<Leader><Leader>x', function() vim.cmd '!%' end, { desc = 'Execute current file' })
 

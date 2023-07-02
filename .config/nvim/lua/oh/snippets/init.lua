@@ -23,7 +23,7 @@ function M.setup()
     ext_prio_increase = 1,
   }
 
-  M.reload_snippets()
+  M.reload()
 
   vim.keymap.set({ 's', 'i' }, '<c-l>', function()
     if ls.choice_active() then ls.change_choice(1) end
@@ -38,7 +38,7 @@ function M.setup()
   end, { desc = 'Jump backwards snippet' })
 end
 
-function M.reload_snippets()
+function M.reload()
   ls.cleanup()
   require('luasnip.loaders.from_lua').lazy_load()
 end
