@@ -9,12 +9,13 @@ local capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_ca
 
 ---@return string[]
 local function get_lua_workspace_files()
-  local files = vim.api.nvim_get_runtime_file('', true)
-  for i in ipairs(files) do
-    files[i] = files[i]:gsub('/lazy/([^/]+)$', '/lazy/%1/lua')
+  local paths = {}
+  for _, f in ipairs(vim.api.nvim_get_runtime_file('', true)) do
+    paths[#paths + 1] = f:gsub('/lazy/([^/]+)$', '/lazy/%1/lua')
+    if f:match '/lazy/neodev.nvim' then paths[#paths + 1] = f:gsub('/lazy/([^/]+)$', '/lazy/%1/types/nightly') end
   end
 
-  return files
+  return paths
 end
 
 local M = {}
