@@ -4,7 +4,6 @@
 
 local lspconfig = require 'lspconfig'
 local cmplsp = require 'cmp_nvim_lsp'
-local plenary = require 'plenary'
 
 local capabilities = cmplsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -20,7 +19,7 @@ end
 
 local M = {}
 
-function M:setup()
+function M.setup()
   -- Rust
   lspconfig.rust_analyzer.setup {
     capabilities = capabilities,

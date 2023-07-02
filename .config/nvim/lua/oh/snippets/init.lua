@@ -7,7 +7,7 @@ local M = {}
 local ls = require 'luasnip'
 local types = require 'luasnip.util.types'
 
-M.setup = function()
+function M.setup()
   ls.config.set_config {
     history = true,
     update_events = 'TextChanged,TextChangedI',
@@ -38,7 +38,7 @@ M.setup = function()
   end, { desc = 'Jump backwards snippet' })
 end
 
-M.reload_snippets = function()
+function M.reload_snippets()
   ls.cleanup()
   require('luasnip.loaders.from_lua').lazy_load()
 end
