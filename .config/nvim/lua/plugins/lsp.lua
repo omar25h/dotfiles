@@ -1,6 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
+    event = 'UIEnter',
     priority = 0,
     dependencies = {
       {

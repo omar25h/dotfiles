@@ -49,7 +49,7 @@ return {
   },
   {
     'rebelot/heirline.nvim',
-    event = 'UiEnter',
+    event = 'UIEnter',
     config = function() require 'oh.statusline' end,
   },
   {
