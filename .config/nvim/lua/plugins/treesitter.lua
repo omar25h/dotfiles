@@ -1,7 +1,7 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    event = 'UIEnter',
+    event = { 'BufReadPost', 'BufNewFile' },
     version = false,
     build = ':TSUpdate',
     dependencies = {
@@ -59,10 +59,12 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
   {
     'nvim-treesitter/playground',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
 }

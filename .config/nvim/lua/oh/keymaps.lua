@@ -6,12 +6,6 @@
 vim.keymap.set('', '<C-n>', vim.cmd.cnext, { desc = 'Goto next error' })
 vim.keymap.set('', '<C-p>', vim.cmd.cprevious, { desc = 'Goto previous error' })
 vim.keymap.set('n', '<Leader>c', vim.cmd.cclose, { desc = 'Close quickfix window' })
-vim.keymap.set(
-  'n',
-  '<Leader>ne',
-  function() require('nvim-tree.api').tree.toggle { find_file = true, focus = true } end,
-  { desc = 'Toggle nvim-tree' }
-)
 vim.keymap.set('n', '<Leader><Leader>s', function() require('oh.snippets').reload() end, { desc = 'Reload snippets' })
 vim.keymap.set('n', '<Leader><Leader>w', vim.cmd.w, { desc = 'Write file' })
 vim.keymap.set('n', '<Leader><Leader>x', function() vim.cmd '!%' end, { desc = 'Execute current file' })
@@ -35,19 +29,6 @@ vim.keymap.set(
 )
 vim.keymap.set('n', '<Leader>dl', vim.diagnostic.setloclist, { silent = true, desc = 'Add diagnostic to buffer list' })
 vim.keymap.set('n', '<Leader>vca', vim.lsp.buf.code_action, { silent = true, desc = 'Execute code action' })
-
--- Telescope
-local telescope = require 'telescope.builtin'
-
-vim.keymap.set('n', '<Leader>ff', telescope.find_files, { desc = 'Find files' })
-vim.keymap.set(
-  'n',
-  '<Leader>fg',
-  require('telescope').extensions.live_grep_args.live_grep_args,
-  { desc = 'Live grep files' }
-)
-vim.keymap.set('n', '<Leader>fb', telescope.buffers, { desc = 'List buffers' })
-vim.keymap.set('n', '<Leader>fh', telescope.help_tags, { desc = 'List help tags' })
 
 -- Misc
 vim.keymap.set('n', '<Leader>s', require('oh.caser').switch_case, { silent = true, desc = 'Switch case' })

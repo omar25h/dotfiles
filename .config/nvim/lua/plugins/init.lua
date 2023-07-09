@@ -41,15 +41,18 @@ return {
   },
   {
     'windwp/nvim-autopairs',
+    event = 'InsertEnter',
     config = function() require('nvim-autopairs').setup {} end,
   },
   {
     'kylechui/nvim-surround',
+    event = 'BufEnter',
     config = function() require('nvim-surround').setup {} end,
   },
   {
     'rebelot/heirline.nvim',
     event = 'UIEnter',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function() require 'oh.statusline' end,
   },
   {

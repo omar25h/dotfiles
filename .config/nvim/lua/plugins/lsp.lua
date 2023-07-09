@@ -1,15 +1,18 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = 'UIEnter',
-    priority = 0,
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       {
         'folke/neodev.nvim',
         config = function() require('neodev').setup {} end,
       },
     },
-    config = function() require('oh.lsp').setup {} end,
+    config = function() require('oh.lsp').setup() end,
   },
-  'b0o/schemastore.nvim',
+  {
+    'b0o/schemastore.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    ft = { 'json', 'lua' },
+  },
 }

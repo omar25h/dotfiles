@@ -1,7 +1,8 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    event = 'UIEnter',
+    cmd = 'Telescope',
+    keys = { '<Leader>ff', '<Leader>fg', '<Leader>fh', '<Leader>fb' },
     dependencies = {
       { 'nvim-lua/popup.nvim' },
       { 'nvim-lua/plenary.nvim' },
@@ -11,6 +12,6 @@ return {
       },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
     },
-    config = function() require 'oh.telescope' end,
+    config = function() require('oh.telescope').setup() end,
   },
 }

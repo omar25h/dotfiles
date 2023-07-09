@@ -8,6 +8,7 @@ return {
       'onsails/lspkind-nvim',
       'saadparwaiz1/cmp_luasnip',
     },
+    event = 'InsertEnter',
     config = function() require('oh.completion').setup() end,
   },
 }
