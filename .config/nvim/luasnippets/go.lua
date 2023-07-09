@@ -120,8 +120,10 @@ return {
     t '`json:"',
     d(1, function()
       local tag = ts_util.get_field_name(vim.treesitter.get_node(), vim.api.nvim_win_get_cursor(0), 'name')
+      tag = caser.convert_to_snake_case(tag)
+      if vim.g.snippets_go_tag_case == 'camel' then tag = caser.convert_to_camel_case(tag) end
       return s('', {
-        i(1, caser.convert_to_snake_case(tag)),
+        i(1, tag),
       })
     end),
     i(2, ''),
