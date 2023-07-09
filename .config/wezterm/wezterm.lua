@@ -102,27 +102,23 @@ end)
 return {
   term = 'wezterm',
   adjust_window_size_when_changing_font_size = false,
-  font = font_with_fallback('JetBrainsMono Nerd Font Mono', { weight = 'Medium' }),
-  font_size = 15.0,
+  font = font_with_fallback('Maple Mono', { weight = 'Regular' }),
+  font_size = 17.0,
   line_height = 1.45,
 
   font_rules = {
     {
       italic = true,
-      font = font_with_fallback('JetBrainsMono Nerd Font Mono', { weight = 'Medium', style = 'Italic' }),
+      font = font_with_fallback('Maple Mono', { weight = 'Regular', style = 'Italic' }),
     },
     {
       italic = true,
       intensity = 'Bold',
-      font = font_with_fallback('JetBrainsMono Nerd Font Mono', { weight = 'ExtraBold', style = 'Italic' }),
+      font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Italic' }),
     },
     {
       intensity = 'Bold',
-      font = font_with_fallback('JetBrainsMono Nerd Font Mono', { weight = 'ExtraBold' }),
-    },
-    {
-      intensity = 'Half',
-      font = font_with_fallback('JetBrainsMono Nerd Font Mono', { weight = 'Light' }),
+      font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Normal' }),
     },
   },
 
