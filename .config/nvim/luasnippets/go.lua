@@ -130,4 +130,51 @@ return {
     t '"`',
     i(0),
   }),
+  postfix(
+    {
+      trig = '.meth',
+      name = 'Create a method',
+    },
+    fmta(
+      [[
+        func (<re> <pointer><type_name>) <name>(<args>)<return_type> {
+            <body>
+        }<cursor>
+      ]],
+      {
+        re = d(1, function(_, parent)
+          local match = parent.env.POSTFIX_MATCH
+          local initials = match:gsub('^%l', string.upper):gsub('(%l)', ''):lower()
+          return s('', { i(1, initials) })
+        end),
+        pointer = c(2, { t '*', t '' }),
+        type_name = d(3, function(_, parent) return s('', { i(1, parent.env.POSTFIX_MATCH) }) end),
+        name = i(4),
+        args = i(5),
+        return_type = d(6, function()
+          return s('', {
+            f(function(args)
+              if args[1][1]:match '[^( ] [^ )]' or args[1][1]:match ',' then
+                return ' ('
+              elseif #args[1][1] > 0 then
+                return ' '
+              else
+                return ''
+              end
+            end, { 1 }),
+            i(1),
+            f(function(args)
+              if args[1][1]:match '[^( ] [^ )]' or args[1][1]:match ',' then
+                return ')'
+              else
+                return ''
+              end
+            end, { 1 }),
+          })
+        end),
+        body = i(7),
+        cursor = i(0),
+      }
+    )
+  ),
 }
