@@ -10,8 +10,8 @@ local types = require 'luasnip.util.types'
 function M.setup()
   ls.config.set_config {
     history = true,
-    update_events = 'TextChanged,TextChangedI',
-    region_check_events = 'CursorMoved,InsertEnter',
+    update_events = { 'TextChanged', 'TextChangedI' },
+    region_check_events = { 'CursorMoved', 'InsertEnter' },
     ext_opts = {
       [types.choiceNode] = {
         active = {
