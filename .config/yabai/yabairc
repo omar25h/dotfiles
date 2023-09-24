@@ -27,6 +27,7 @@ yabai -m rule --add title="^Copy"                             manage=off
 yabai -m rule --add title="^Save"                             manage=off
 yabai -m rule --add title="^Open"                             manage=off
 yabai -m rule --add title="^About"                            manage=off
+yabai -m rule --add title="^Update"                           manage=off
 yabai -m rule --add title="Tip of the Day"                    manage=off
 yabai -m rule --add app="^System Settings$"                   manage=off
 yabai -m rule --add title="^TinyStopwatch History$"           manage=off
@@ -38,6 +39,8 @@ yabai -m rule --add app="Preview"                             manage=off
 yabai -m rule --add app="Stickies"                            manage=off
 yabai -m rule --add app="Calculator"                          manage=off
 yabai -m rule --add app="ueli"                                layer=above
+yabai -m rule --add app="Finder"                              manage=off
 yabai -m rule --add app="VLC"                                 manage=off
+yabai -m rule --add app="Godot"                               manage=off
 
 echo "yabai configuration loaded.."
