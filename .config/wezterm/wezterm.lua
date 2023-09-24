@@ -8,16 +8,12 @@ end
 
 local function get_appearance()
   if wezterm.gui then return wezterm.gui.get_appearance() end
-
   return 'Dark'
 end
 
 local function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'GruvboxDark'
-  else
-    return 'Gruvbox (Gogh)'
-  end
+  if appearance:find 'Dark' then return 'GruvboxDark' end
+  return 'Gruvbox (Gogh)'
 end
 
 local function colors_for_appearance(appearance)
@@ -99,134 +95,88 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   return title
 end)
 
-return {
-  term = 'wezterm',
-  adjust_window_size_when_changing_font_size = false,
-  font = font_with_fallback('Maple Mono', { weight = 'Regular' }),
-  font_size = 17.0,
-  line_height = 1.45,
+local config = {}
 
-  font_rules = {
-    {
-      italic = true,
-      font = font_with_fallback('Maple Mono', { weight = 'Regular', style = 'Italic' }),
-    },
-    {
-      italic = true,
-      intensity = 'Bold',
-      font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Italic' }),
-    },
-    {
-      intensity = 'Bold',
-      font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Normal' }),
-    },
+if wezterm.config_builder then
+  config = wezterm.config_builder()
+  config:set_strict_mode(true)
+end
+
+config.term = 'wezterm'
+config.adjust_window_size_when_changing_font_size = false
+config.font = font_with_fallback('Maple Mono', { weight = 'Regular' })
+config.font_size = 17.0
+config.line_height = 1.45
+config.font_rules = {
+  { italic = true, font = font_with_fallback('Maple Mono', { weight = 'Regular', style = 'Italic' }) },
+  {
+    italic = true,
+    intensity = 'Bold',
+    font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Italic' }),
   },
+  { intensity = 'Bold', font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Normal' }) },
+}
 
-  use_resize_increments = true,
-  freetype_interpreter_version = 40,
-  freetype_load_target = 'Light',
-  freetype_render_target = 'Light',
-  freetype_load_flags = 'DEFAULT',
-  use_fancy_tab_bar = true,
-  hide_tab_bar_if_only_one_tab = false,
-  window_decorations = 'INTEGRATED_BUTTONS | RESIZE| MACOS_FORCE_DISABLE_SHADOW',
-  allow_square_glyphs_to_overflow_width = 'Always',
-  command_palette_font_size = 16.0,
-  front_end = 'WebGpu',
-  default_cursor_style = 'SteadyBlock',
+config.use_resize_increments = false
+config.use_fancy_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
+config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE| MACOS_FORCE_DISABLE_SHADOW'
+config.allow_square_glyphs_to_overflow_width = 'Always'
+config.command_palette_font_size = 17.0
+config.front_end = 'WebGpu'
+config.webgpu_power_preference = 'HighPerformance'
+config.default_cursor_style = 'SteadyBlock'
 
-  window_frame = {
-    font = wezterm.font { family = 'Roboto', weight = 'Bold' },
-    font_size = 14.0,
-    active_titlebar_bg = '#333333',
-    inactive_titlebar_bg = '#333333',
-  },
+config.window_frame = {
+  font = wezterm.font { family = 'Roboto', weight = 'Bold' },
+  font_size = 14.0,
+  active_titlebar_bg = '#333333',
+  inactive_titlebar_bg = '#333333',
+}
 
-  color_scheme = scheme_for_appearance(get_appearance()),
-  colors = colors_for_appearance(get_appearance()),
+config.window_padding = {
+  left = '1cell',
+  right = '1cell',
+  top = '0.5cell',
+  bottom = '0.25cell',
+}
 
-  leader = { key = '/', mods = 'SUPER', timeout_milliseconds = 2000 },
+config.color_scheme = scheme_for_appearance(get_appearance())
+config.colors = colors_for_appearance(get_appearance())
 
-  keys = {
-    {
-      key = 'UpArrow',
-      mods = 'SUPER',
-      action = act.ActivatePaneDirection 'Up',
-    },
-    {
-      key = 'DownArrow',
-      mods = 'SUPER',
-      action = act.ActivatePaneDirection 'Down',
-    },
-    {
-      key = 'LeftArrow',
-      mods = 'SUPER',
-      action = act.ActivatePaneDirection 'Left',
-    },
-    {
-      key = 'RightArrow',
-      mods = 'SUPER',
-      action = act.ActivatePaneDirection 'Right',
-    },
-    {
-      key = 'p',
-      mods = 'SUPER',
-      action = act.ActivateCommandPalette,
-    },
-    {
-      key = 'z',
-      mods = 'LEADER',
-      action = act.TogglePaneZoomState,
-    },
-    { key = 'e', mods = 'LEADER|CTRL', action = act.PaneSelect },
-    {
-      key = '%',
-      mods = 'LEADER|SHIFT',
-      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
-    },
-    {
-      key = '"',
-      mods = 'LEADER|SHIFT',
-      action = act.SplitVertical { domain = 'CurrentPaneDomain' },
-    },
-    {
-      key = '/',
-      mods = 'LEADER|SUPER',
-      action = act.ActivateLastTab,
-    },
-    { key = 'i', mods = 'CTRL|SHIFT', action = act.SwitchToWorkspace },
-    {
-      key = 's',
-      mods = 'LEADER',
-      action = act.ShowLauncherArgs {
-        flags = 'FUZZY|WORKSPACES',
-      },
-    },
-    { key = '[', mods = 'SUPER', action = act.ActivateTabRelative(-1) },
-    { key = ']', mods = 'SUPER', action = act.ActivateTabRelative(1) },
-    {
-      key = ',',
-      mods = 'LEADER',
-      action = act.PromptInputLine {
-        description = 'Enter new name for tab',
-        action = wezterm.action_callback(function(window, pane, line)
-          -- line is set only if enter is entered
-          if line then window:active_tab():set_title(line) end
-        end),
-      },
-    },
-  },
+config.leader = { key = '/', mods = 'SUPER', timeout_milliseconds = 2000 }
 
-  unix_domains = {
-    { name = 'unix' },
-  },
-
-  default_gui_startup_args = { 'connect', 'unix' },
-
-  window_padding = {
-    left = '1cell',
-    right = '1cell',
-    top = '0.5cell',
-    bottom = '0.25cell',
+config.keys = {
+  { key = 'UpArrow', mods = 'SUPER', action = act.ActivatePaneDirection 'Up' },
+  { key = 'DownArrow', mods = 'SUPER', action = act.ActivatePaneDirection 'Down' },
+  { key = 'LeftArrow', mods = 'SUPER', action = act.ActivatePaneDirection 'Left' },
+  { key = 'RightArrow', mods = 'SUPER', action = act.ActivatePaneDirection 'Right' },
+  { key = 'p', mods = 'SUPER', action = act.ActivateCommandPalette },
+  { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
+  { key = 'e', mods = 'LEADER|CTRL', action = act.PaneSelect },
+  { key = '%', mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = '"', mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+  { key = '/', mods = 'LEADER|SUPER', action = act.ActivateLastTab },
+  { key = 'i', mods = 'CTRL|SHIFT', action = act.SwitchToWorkspace },
+  { key = 's', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+  { key = 'r', mods = 'LEADER', action = act.RotatePanes 'Clockwise' },
+  { key = '[', mods = 'SUPER', action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'SUPER', action = act.ActivateTabRelative(1) },
+  { key = 'H', mods = 'LEADER', action = act.AdjustPaneSize { 'Left', 5 } },
+  { key = 'J', mods = 'LEADER', action = act.AdjustPaneSize { 'Down', 5 } },
+  { key = 'K', mods = 'LEADER', action = act.AdjustPaneSize { 'Up', 5 } },
+  { key = 'L', mods = 'LEADER', action = act.AdjustPaneSize { 'Right', 5 } },
+  {
+    key = ',',
+    mods = 'LEADER',
+    action = act.PromptInputLine {
+      description = 'Enter new name for tab',
+      action = wezterm.action_callback(function(window, pane, line)
+        -- line is set only if enter key is pressed
+        if line then window:active_tab():set_title(line) end
+      end),
+    },
   },
 }
+
+return config
