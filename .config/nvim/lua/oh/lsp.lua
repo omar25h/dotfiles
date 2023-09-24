@@ -70,6 +70,8 @@ function M.setup()
           rangeVariableTypes = true,
         },
         staticcheck = true,
+        ['ui.completion.usePlaceholders'] = true,
+        ['ui.completion.experimentalPostfixCompletions'] = true,
       },
     },
   }
