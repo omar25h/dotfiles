@@ -42,5 +42,7 @@ yabai -m rule --add app="ueli"                                layer=above
 yabai -m rule --add app="Finder"                              manage=off
 yabai -m rule --add app="VLC"                                 manage=off
 yabai -m rule --add app="Godot"                               manage=off
+yabai -m rule --add app="^Logi"                               manage=off
+yabai -m rule --add app="^Camera Settings"                    manage=off
 
 echo "yabai configuration loaded.."
