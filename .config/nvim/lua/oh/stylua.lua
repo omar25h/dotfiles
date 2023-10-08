@@ -39,6 +39,7 @@ end
 function M.format(opts)
   opts = opts or {}
   local bufnr = opts.bufnr or vim.api.nvim_get_current_buf()
+  if string.find(vim.api.nvim_buf_get_name(bufnr), '_spec') then return end
 
   local stylua_toml
   if opts.config_path then
