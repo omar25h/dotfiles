@@ -63,4 +63,9 @@ return {
       vim.o.timeoutlen = 1000
     end,
   },
+  {
+    'NoahTheDuke/vim-just',
+    event = { 'BufReadPre', 'BufNewFile' },
+    ft = { '\\cjustfile', '*.just', '.justfile' },
+  },
 }
