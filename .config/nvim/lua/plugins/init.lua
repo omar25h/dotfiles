@@ -52,7 +52,7 @@ return {
   {
     'rebelot/heirline.nvim',
     event = 'UIEnter',
-    dependencies = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function() require 'oh.statusline' end,
   },
   {
