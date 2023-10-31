@@ -7,6 +7,9 @@
 	autocrlf = false
 	pager = delta
 
+[color]
+	ui = always
+
 [interactive]
 	diffFilter = delta --color-only
 
@@ -34,6 +37,7 @@
 	root = rev-parse --show-toplevel
 	exec = "!exec "
 	brlen = !git branch --show-current | wc -c
+	main-branch = "!basename $(git symbolic-ref --short refs/remotes/origin/HEAD)"
 
 [merge]
 	tool = nvimdiff
@@ -44,11 +48,8 @@
 [mergetool "nvimdiff"]
 	cmd = nvim -d $LOCAL $MERGED $REMOTE -c '$wincmd l'
 
-[color]
-	ui = always
+[push]
+	autoSetupRemote = true
 
 [include]
   path = local.config
-
-[push]
-	autoSetupRemote = true
