@@ -27,7 +27,7 @@ set -gx EDITOR $HOME/.local/share/bob/nvim-bin/nvim
 set -gx DOCKER_HOST "unix://$HOME/.colima/default/docker.sock"
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/ripgreprc
 
-alias portlisten="netstat -anvp tcp | awk 'NR<3 || /LISTEN/'"
+alias portlisten="lsof -a -i4 -i6 -itcp | awk 'NR==1 || /LISTEN/'"
 
 alias ls="eza"
 alias lt="eza -T --color=always --group-directories-first --icons"
