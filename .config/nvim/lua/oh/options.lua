@@ -27,6 +27,7 @@ vim.opt.fillchars = { eob = '·' }
 vim.opt.listchars = { nbsp = '␣', trail = '·', tab = '» ' }
 vim.opt.path:append ',**'
 vim.opt.shortmess:append 'c'
+vim.opt.clipboard:append 'unnamedplus'
 
 vim.wo.number = true
 vim.wo.relativenumber = true
