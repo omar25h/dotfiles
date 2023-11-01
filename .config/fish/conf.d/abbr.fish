@@ -15,5 +15,6 @@ abbr --add gcob git checkout -b
 abbr --add gsw git switch
 abbr --add gswc git switch -c
 abbr --add gpr git pull --rebase origin \(git main-branch\)
+abbr --add gpull git pull
 abbr --add gpsf git push --force-with-lease
 abbr --add gps git push
