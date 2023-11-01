@@ -52,4 +52,4 @@
 	autoSetupRemote = true
 
 [include]
-  path = local.config
+	path = local.config
