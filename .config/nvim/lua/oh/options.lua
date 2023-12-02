@@ -23,30 +23,20 @@ vim.o.swapfile = false
 vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.wildmenu = true
-vim.opt.fillchars = { eob = '·' }
+vim.opt.fillchars = { eob = '·', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
 vim.opt.listchars = { nbsp = '␣', trail = '·', tab = '» ' }
 vim.opt.path:append ',**'
 vim.opt.shortmess:append 'c'
+vim.opt.linebreak = true
 
+vim.o.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s'
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes:1'
+vim.wo.foldcolumn = '0'
 
 vim.g.filetype_m = 'objc'
 vim.g.tex_flavor = 'latex'
-
-local augroup_fold = vim.api.nvim_create_augroup('fold', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost' }, {
-  group = augroup_fold,
-  callback = function()
-    vim.wo.foldenable = true
-    vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
-    vim.wo.foldmethod = 'expr'
-
-    -- Update all folds and expand
-    vim.cmd.normal 'zxzR'
-  end,
-})
 
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {

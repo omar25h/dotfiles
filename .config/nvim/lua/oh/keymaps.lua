@@ -12,7 +12,6 @@ vim.keymap.set('n', '<Leader><Leader>x', function() vim.cmd '!%' end, { desc = '
 
 -- LSP
 vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { silent = true, desc = 'Goto definition' })
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { silent = true, desc = 'Hover' })
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { silent = true, desc = 'Goto implementation' })
 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { silent = true, desc = 'Signature help' })
 vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, { silent = true, desc = 'Goto type definition' })
