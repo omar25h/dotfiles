@@ -104,17 +104,32 @@ end
 
 config.term = 'wezterm'
 config.adjust_window_size_when_changing_font_size = false
-config.font = font_with_fallback('Maple Mono', { weight = 'Regular' })
+config.font = font_with_fallback('MonoLisaVariable Nerd Font', { weight = 400 })
 config.font_size = 17.0
 config.line_height = 1.45
 config.font_rules = {
-  { italic = true, font = font_with_fallback('Maple Mono', { weight = 'Regular', style = 'Italic' }) },
+  {
+    intensity = 'Half',
+    font = font_with_fallback('MonoLisaVariable Nerd Font', { weight = 300 }),
+  },
+  {
+    italic = true,
+    font = font_with_fallback('MonoLisaVariable Nerd Font', { style = 'Italic' }),
+  },
   {
     italic = true,
     intensity = 'Bold',
-    font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Italic' }),
+    font = font_with_fallback('MonoLisaVariable Nerd Font', { weight = 700, style = 'Italic' }),
   },
-  { intensity = 'Bold', font = font_with_fallback('Maple Mono', { weight = 'Bold', style = 'Normal' }) },
+  {
+    intensity = 'Bold',
+    font = font_with_fallback('MonoLisaVariable Nerd Font', { weight = 700 }),
+  },
+  {
+    italic = true,
+    intensity = 'Bold',
+    font = font_with_fallback('MonoLisaVariable Nerd Font', { weight = 700, style = 'Italic' }),
+  },
 }
 
 config.use_resize_increments = false
@@ -178,5 +193,7 @@ config.keys = {
     },
   },
 }
+
+config.default_workspace = '󰛨  Personal'
 
 return config
