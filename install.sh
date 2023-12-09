@@ -9,4 +9,3 @@ for directory in $CWD/.config/*/; do
   echo Synced $(basename $directory) successfully!
   echo
 done
-
