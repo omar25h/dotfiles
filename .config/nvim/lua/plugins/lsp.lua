@@ -2,12 +2,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      {
-        'folke/neodev.nvim',
-        config = function() require('neodev').setup {} end,
-      },
-    },
+    dependencies = { 'folke/neodev.nvim' },
     config = function() require('oh.lsp').setup() end,
   },
   {

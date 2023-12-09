@@ -2,44 +2,63 @@
 -- General Configuration
 -------------------------------------------------------------------------------------------------
 
-vim.o.autoread = true
-vim.o.autowrite = true
-vim.o.completeopt = 'menuone,noinsert,noselect'
-vim.o.cursorline = true
-vim.o.cursorlineopt = 'number'
-vim.o.expandtab = true
-vim.o.exrc = true
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.laststatus = 3
-vim.o.list = true
-vim.o.mouse = 'nvi'
-vim.o.omnifunc = 'v:lua.vim.lsp.omnifunc'
-vim.o.shiftwidth = 2
-vim.o.smartcase = true
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.swapfile = false
-vim.o.tabstop = 2
-vim.o.termguicolors = true
-vim.o.wildmenu = true
-vim.opt.fillchars = { eob = '·', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
-vim.opt.listchars = { nbsp = '␣', trail = '·', tab = '» ' }
-vim.opt.path:append ',**'
-vim.opt.shortmess:append 'c'
+vim.opt.autoread = true
+vim.opt.autowrite = true
+vim.opt.cmdheight = 0
+vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
+vim.opt.expandtab = true
+vim.opt.exrc = true
+vim.opt.fillchars = { eob = '·' }
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true
+vim.opt.laststatus = 3
 vim.opt.linebreak = true
-
-vim.o.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s'
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.wo.signcolumn = 'yes:1'
-vim.wo.foldcolumn = '0'
+vim.opt.list = true
+vim.opt.listchars = { nbsp = '␣', trail = '·', tab = '» ' }
+vim.opt.mouse = 'nvi'
+vim.opt.number = true
+vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
+vim.opt.path:append ',**'
+vim.opt.relativenumber = true
+vim.opt.shiftwidth = 2
+vim.opt.shortmess:append { c = true, W = false }
+vim.opt.showmode = false
+vim.opt.signcolumn = 'yes:1'
+vim.opt.smartcase = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.swapfile = false
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.wildmenu = true
 
 vim.g.filetype_m = 'objc'
 vim.g.tex_flavor = 'latex'
+
+vim.diagnostic.config {
+  virtual_text = { prefix = '●' },
+  severity_sort = true,
+  float = { source = 'always' },
+}
+
+local signs = { Error = '✖ ', Warn = ' ', Hint = '➤ ', Info = ' ' }
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = highlight_yank,
   callback = function() vim.highlight.on_yank { higroup = 'Visual', timeout = 200 } end,
+})
+
+local mode_changed = vim.api.nvim_create_augroup('ModeChanged', { clear = true })
+vim.api.nvim_create_autocmd({ 'ModeChanged' }, {
+  group = mode_changed,
+  callback = function()
+    vim.schedule(function() vim.cmd 'redraw' end)
+  end,
 })
