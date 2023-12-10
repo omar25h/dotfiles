@@ -4,27 +4,6 @@ return {
     lazy = false,
     priority = 1000,
     dependencies = { 'rktjmp/lush.nvim' },
-    init = function()
-      vim.api.nvim_create_autocmd('ColorScheme', {
-        pattern = '*',
-        callback = function()
-          local function hl_link(group, link) vim.api.nvim_set_hl(0, group, { link = link }) end
-          hl_link('NvimTreeNormalFloat', 'GruvboxFg1')
-          hl_link('NvimTreeWinSeparator', 'GruvboxFg1')
-          hl_link('WhichKeyBorder', 'FloatBorder')
-          hl_link('WhichKey', 'Function')
-          hl_link('WhichKeyGroup', 'Keyword')
-          hl_link('WhichKeySeparator', 'DiffAdd')
-          hl_link('WhichKeyDesc', 'Identifier')
-          hl_link('WhichKeyFloat', 'NormalFloat')
-          hl_link('WhichKeyBorder', 'FloatBorder')
-          hl_link('WhichKeyValue', 'Comment')
-        end,
-      })
-
-      vim.cmd.colorscheme 'gruvbox'
-      vim.o.background = vim.fn.getenv 'DARKMODE' == '1' and 'dark' or 'light'
-    end,
     opts = {
       overrides = {
         CursorLineNr = { bg = '' },
@@ -58,10 +37,6 @@ return {
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 1000
-    end,
   },
   {
     'NoahTheDuke/vim-just',
@@ -75,27 +50,18 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     event = 'BufRead',
-    init = function()
-      vim.opt.foldcolumn = '0'
-      vim.opt.foldlevel = 99
-      vim.opt.foldlevelstart = 99
-      vim.opt.foldenable = true
-    end,
-    keys = function()
-      local ufo = require 'ufo'
-
-      return {
-        { 'zR', ufo.openAllFolds },
-        { 'zM', ufo.closeAllFolds },
-        {
-          'K',
-          function()
-            local winid = ufo.peekFoldedLinesUnderCursor()
-            if not winid then vim.lsp.buf.hover() end
-          end,
-        },
-      }
-    end,
+    keys = {
+      { 'zR', function() require('ufo').openAllFolds() end, desc = 'Open all folds' },
+      { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
+      {
+        'K',
+        function()
+          local winid = require('ufo').peekFoldedLinesUnderCursor()
+          if not winid then vim.lsp.buf.hover() end
+        end,
+        desc = 'Peek Folded Lines or Hover',
+      },
+    },
     opts = {
       fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}

@@ -12,24 +12,23 @@ return {
       },
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
-    init = function()
-      local ts = require 'telescope'
-
-      ts.load_extension 'fzf'
-      ts.load_extension 'live_grep_args'
-    end,
-    keys = function()
-      local ext = require('telescope').extensions
-      local ts = require 'telescope.builtin'
-
-      return {
-        { '<Leader>ff', ts.find_files, desc = 'Find files' },
-        { '<Leader>fg', ext.live_grep_args.live_grep_args, desc = 'Live grep files' },
-        { '<Leader>fb', ts.buffers, desc = 'List buffers' },
-        { '<Leader>fh', ts.help_tags, desc = 'List help tags' },
-        { '<Leader>dd', ts.diagnostics, noremap = true, silent = true, desc = 'List diagnostics' },
-      }
-    end,
+    keys = {
+      { '<Leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Find files' },
+      {
+        '<Leader>fg',
+        function() require('telescope').extensions.live_grep_args.live_grep_args() end,
+        desc = 'Live grep files',
+      },
+      { '<Leader>fb', function() require('telescope.builtin').buffers() end, desc = 'List buffers' },
+      { '<Leader>fh', function() require('telescope.builtin').help_tags() end, desc = 'List help tags' },
+      {
+        '<Leader>dd',
+        function() require('telescope.builtin').diagnostics() end,
+        noremap = true,
+        silent = true,
+        desc = 'List diagnostics',
+      },
+    },
     opts = {
       pickers = {
         buffers = {
@@ -52,5 +51,13 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      local ts = require 'telescope'
+
+      ts.load_extension 'fzf'
+      ts.load_extension 'live_grep_args'
+
+      ts.setup(opts)
+    end,
   },
 }

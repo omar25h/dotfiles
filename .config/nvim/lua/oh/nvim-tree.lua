@@ -1,9 +1,3 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.o.termguicolors = true
-
 local M = {}
 
 local HEIGHT_RATIO = 0.8
