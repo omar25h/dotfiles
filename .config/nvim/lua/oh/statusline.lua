@@ -2,10 +2,14 @@ local conditions = require 'heirline.conditions'
 local utils = require 'heirline.utils'
 local heirline = require 'heirline'
 
+local M = {}
+
 local function setup_colors()
   return {
     bright_bg = utils.get_highlight('StatusLine').fg,
     bright_fg = utils.get_highlight('StatusLine').bg,
+    dark_bg = utils.get_highlight('GruvboxBg2').fg,
+    dark_fg = utils.get_highlight('GruvboxFg2').bg,
     red = utils.get_highlight('DiagnosticError').fg,
     dark_red = utils.get_highlight('DiffDelete').bg,
     green = utils.get_highlight('String').fg,
@@ -25,18 +29,7 @@ local function setup_colors()
 end
 
 local ViMode = {
-  init = function(self)
-    self.mode = vim.fn.mode(1)
-
-    -- For operator mode
-    if not self.once then
-      vim.api.nvim_create_autocmd('ModeChanged', {
-        pattern = '*:*o',
-        command = 'redrawstatus',
-      })
-      self.once = true
-    end
-  end,
+  init = function(self) self.mode = vim.fn.mode(1) end,
 
   static = {
     mode_names = {
@@ -118,7 +111,10 @@ local FileIcon = {
 
   provider = function(self) return self.icon and (' ' .. self.icon .. ' ') end,
 
-  hl = function(self) return { fg = self.icon_color } end,
+  hl = function(self)
+    local colors = setup_colors()
+    return { fg = self.icon_color, bg = utils.get_highlight('GruvboxBg1').fg }
+  end,
 }
 
 local FileName = {
@@ -136,19 +132,19 @@ local FileName = {
     return filename .. ' '
   end,
 
-  hl = { fg = utils.get_highlight('Directory').fg },
+  hl = { fg = utils.get_highlight('Directory').fg, bg = utils.get_highlight('GruvboxBg1').fg },
 }
 
 local FileFlags = {
   {
     condition = function() return vim.bo.modified end,
-    provider = '+',
-    hl = { fg = 'green' },
+    provider = '+ ',
+    hl = { fg = 'green', bg = utils.get_highlight('GruvboxBg1').fg },
   },
   {
     condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
-    provider = '',
-    hl = { fg = 'orange' },
+    provider = ' ',
+    hl = { fg = 'orange', bg = utils.get_highlight('GruvboxBg1').fg },
   },
 }
 
@@ -159,6 +155,38 @@ FileNameBlock = utils.insert(
   FileFlags,
   { provider = '%<' } -- The statusline is cut here when there's not enough space
 )
+
+local SearchCount = {
+  condition = function() return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0 end,
+  init = function(self)
+    local ok, search = pcall(vim.fn.searchcount)
+    if ok and search.total then self.search = search end
+  end,
+  provider = function(self)
+    local search = self.search
+    return string.format(' [%d/%d] ', search.current, math.min(search.total, search.maxcount))
+  end,
+  hl = { fg = 'orange', bg = utils.get_highlight('StatusLine').fg },
+}
+
+local MacroRec = {
+  condition = function() return vim.fn.reg_recording() ~= '' and vim.o.cmdheight == 0 end,
+  provider = '  ',
+  hl = { fg = 'orange', bold = true },
+  utils.surround({ '[', ']' }, nil, {
+    provider = function() return vim.fn.reg_recording() end,
+    hl = { fg = 'green', bold = true },
+  }),
+  update = {
+    'RecordingEnter',
+    'RecordingLeave',
+  },
+}
+
+local ShowCmd = {
+  condition = function() return vim.o.cmdheight == 0 end,
+  provider = ' %4(%S%) ',
+}
 
 local Ruler = {
   -- %l = current line number
@@ -192,7 +220,7 @@ local LSPActive = {
     end
     return '  [' .. table.concat(names, ' ') .. '] '
   end,
-  hl = { fg = 'green', bold = true },
+  hl = { fg = 'green', bg = utils.get_highlight('GruvboxBg1').fg, bold = true },
 }
 
 local Align = { provider = '%=' }
@@ -207,8 +235,12 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-heirline.setup {
-  statusline = { ViMode, FileNameBlock, Align, LSPActive, Ruler, Space, ScrollBar },
-}
+function M.setup()
+  heirline.setup {
+    statusline = { ViMode, MacroRec, FileNameBlock, Align, ShowCmd, SearchCount, LSPActive, Ruler, Space, ScrollBar },
+  }
 
-heirline.load_colors(setup_colors())
+  heirline.load_colors(setup_colors())
+end
+
+return M

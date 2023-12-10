@@ -24,6 +24,7 @@ vim.opt.path:append ',**'
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess:append { c = true, W = false }
+vim.opt.showcmdloc = 'statusline'
 vim.opt.showmode = false
 vim.opt.signcolumn = 'yes:1'
 vim.opt.smartcase = true
@@ -66,7 +67,7 @@ local mode_changed = vim.api.nvim_create_augroup('ModeChanged', { clear = true }
 vim.api.nvim_create_autocmd({ 'ModeChanged' }, {
   group = mode_changed,
   callback = function()
-    vim.schedule(function() vim.cmd 'redraw' end)
+    vim.schedule(function() vim.cmd 'redrawstatus' end)
   end,
 })
 

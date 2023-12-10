@@ -32,7 +32,7 @@ return {
     'rebelot/heirline.nvim',
     event = 'UIEnter',
     dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function() require 'oh.statusline' end,
+    config = function() require('oh.statusline').setup() end,
   },
   {
     'folke/which-key.nvim',
