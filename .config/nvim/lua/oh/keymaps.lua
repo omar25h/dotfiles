@@ -8,7 +8,6 @@ local map = vim.keymap.set
 map('n', '<C-n>', function() pcall(vim.cmd.cnext) end, { desc = 'Goto next error' })
 map('n', '<C-p>', function() pcall(vim.cmd.cprevious) end, { desc = 'Goto previous error' })
 map('n', '<Leader>c', vim.cmd.cclose, { desc = 'Close quickfix window' })
-map('n', '<Leader><Leader>s', function() require('oh.snippets').reload() end, { desc = 'Reload snippets' })
 map('n', '<Leader><Leader>w', vim.cmd.w, { desc = 'Write file' })
 map('n', '<Leader><Leader>x', function() vim.cmd '!%' end, { desc = 'Execute current file' })
 
