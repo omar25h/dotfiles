@@ -49,13 +49,15 @@ vim.diagnostic.config {
   virtual_text = { prefix = '●' },
   severity_sort = true,
   float = { source = 'always' },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '✖',
+      [vim.diagnostic.severity.HINT] = '➤',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.WARN] = '',
+    },
+  },
 }
-
-local signs = { Error = '✖ ', Warn = ' ', Hint = '➤ ', Info = ' ' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 local highlight_yank = vim.api.nvim_create_augroup('highlightYank', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
