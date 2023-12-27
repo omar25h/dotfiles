@@ -10,7 +10,7 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
 vim.opt.expandtab = true
 vim.opt.exrc = true
-vim.opt.fillchars = { eob = '·' }
+vim.opt.fillchars = { eob = '·', fold = ' ' }
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.laststatus = 3
@@ -37,6 +37,16 @@ vim.opt.timeout = true
 vim.opt.timeoutlen = 1000
 vim.opt.wildmenu = true
 
+function FoldText()
+  local text = vim.treesitter.foldtext() --[[ @as string[] ]]
+  local n_lines = vim.v.foldend - vim.v.foldstart
+  table.insert(text, { ' 󰁂 ' .. n_lines, { 'Folded' } })
+  return text
+end
+
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldtext = 'v:lua.FoldText()'
 vim.opt.foldcolumn = '0'
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
